@@ -17,9 +17,34 @@ const Home: NextPage = () => {
           Checkout
         </div>
       </div>
-      <div className="p-10 bg-white shadow-xl rounded-2xl"></div>
-      <div className="p-10 bg-white shadow-xl rounded-2xl"></div>
-      <div className="p-10 bg-white shadow-xl rounded-2xl"></div>
+
+      <div className="overflow-hidden bg-white shadow-xl rounded-2xl">
+        <div className="p-6 bg-blue-500 pb-14">
+          <span className="text-2xl text-white ">Profile</span>
+        </div>
+        <div className="relative p-6 bg-white rounded-3xl -top-5">
+          <div className="relative flex items-end justify-between -top-16">
+            <div className="flex flex-col items-center ">
+              <span className="text-sm text-gray-500">Orders</span>
+              <span className="font-medium">340</span>
+            </div>
+            <div className="w-24 h-24 bg-red-400 rounded-full"></div>
+            <div className="flex flex-col items-center ">
+              <span className="text-sm text-gray-500">Spent</span>
+              <span className="font-medium">640</span>
+            </div>
+          </div>
+
+          <div className="relative flex flex-col items-center -mt-10 -mb-5">
+            <span className="text-lg font-medium">Tony Molloy</span>
+            <span className="text-sm text-gray-400">미국</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="p-6 bg-white shadow-xl rounded-2xl"></div>
+
+      <div className="p-6 bg-white shadow-xl rounded-2xl"></div>
     </div>
   );
 };
