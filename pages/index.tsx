@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <div className="grid gap-10 px-10 py-20 bg-slate-400">
+    <div className="grid min-h-screen gap-10 px-10 py-20 bg-slate-400">
       <div className="p-6 bg-white shadow-xl rounded-2xl">
         <span className="text-3xl font-semibold">Select Item</span>
         <div className="flex justify-between my-2">
@@ -42,7 +42,42 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="p-6 bg-white shadow-xl rounded-2xl"></div>
+      <div className="p-6 bg-white shadow-xl rounded-2xl">
+        <div className="flex items-center justify-between mb-4">
+          <span>⬅️</span>
+          <div className="space-x-3">
+            <span>⭐️4.9</span>
+            <span className="p-2 rounded-md shadow-xl">❤️</span>
+          </div>
+        </div>
+        <div className="mb-5 bg-zinc-400 h-72"></div>
+        <div className="flex flex-col">
+          <span className="text-xl font-medium">Swoon Lounge</span>
+          <span className="text-xs text-gray-500">Chair</span>
+          <div className="flex items-center justify-between mt-3 mb-4">
+            <div className="flex items-center">
+              <input type="radio" />
+              <input type="radio" />
+              <input type="radio" />
+            </div>
+            <div className="flex items-center gap-1">
+              <button className="flex items-center justify-center text-xs font-medium bg-blue-200 rounded-lg aspect-square w-7">
+                -
+              </button>
+              <span>1</span>
+              <button className="flex items-center justify-center text-xs font-medium bg-blue-200 rounded-lg aspect-square w-7">
+                +
+              </button>
+            </div>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-medium">$450</span>
+            <button className="p-2 px-8 text-xs text-center text-white bg-blue-500 rounded-lg">
+              Add to cart
+            </button>
+          </div>
+        </div>
+      </div>
 
       <div className="p-6 bg-white shadow-xl rounded-2xl"></div>
     </div>
