@@ -2,19 +2,19 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <form className="flex flex-col p-5 space-y-2 bg-blue-500">
+    <form className="flex flex-col p-5 space-y-2 ">
       <input
         type="text"
         required
         placeholder="UserName"
-        className="border border-gray-400 rounded-md p1-1 peer"
+        className="p-1 border border-gray-400 rounded-md peer"
       />
-      <input
-        type="password"
-        required
-        placeholder="Password"
-        className="border border-gray-400 rounded-md p1-1 peer"
-      />
+      <span className="hidden peer-invalid:text-red-500 peer-invalid:block">
+        This input is invalid
+      </span>
+      <span className="hidden peer-valid:text-teal-500 peer-valid:block">
+        good choice
+      </span>
       <input type="submit" value="Login" className="bg-white" />
     </form>
     // <div className="grid min-h-screen gap-10 px-10 py-20 bg-slate-400">
