@@ -2,21 +2,29 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <form className="flex flex-col p-5 space-y-2 ">
-      <input
-        type="text"
-        required
-        placeholder="UserName"
-        className="p-1 border border-gray-400 rounded-md peer"
-      />
-      <span className="hidden peer-invalid:text-red-500 peer-invalid:block">
-        This input is invalid
-      </span>
-      <span className="hidden peer-valid:text-teal-500 peer-valid:block">
-        good choice
-      </span>
-      <input type="submit" value="Login" className="bg-white" />
-    </form>
+    <div className="flex flex-col p-5 space-y-2">
+      <details className="select-none open:text-white open:bg-indigo-400">
+        <summary className="cursor-pointer">What is my fav food.</summary>
+        <span className="selection:bg-indigo-500 selection:text-white">
+          coding
+        </span>
+      </details>
+    </div>
+    // <form className="flex flex-col p-5 space-y-2 ">
+    //   <input
+    //     type="text"
+    //     required
+    //     placeholder="UserName"
+    //     className="p-1 border border-gray-400 rounded-md peer"
+    //   />
+    //   <span className="hidden peer-invalid:text-red-500 peer-invalid:block">
+    //     This input is invalid
+    //   </span>
+    //   <span className="hidden peer-valid:text-teal-500 peer-valid:block">
+    //     good choice
+    //   </span>
+    //   <input type="submit" value="Login" className="bg-white" />
+    // </form>
     // <div className="grid min-h-screen gap-10 px-10 py-20 bg-slate-400">
     //   <div className="p-6 bg-white shadow-xl rounded-2xl">
     //     <span className="text-3xl font-semibold">Select Item</span>
