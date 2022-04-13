@@ -3,60 +3,20 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   return (
     <>
-      <div className="flex flex-col p-5 space-y-2">
-        <p className="first-letter:text-7xl ">
-          lorem ipsum test test alright everyone. lets do this! goin going
-        </p>
-        <input
-          type="file"
-          className="transition-colors file:border-0 file:hover:text-purple-400 file:hover:bg-white file:hover:border-purple-400 file:hover:border file:rounded-md file:bg-purple-500 file:text-white file:px-3 file:cursor-pointer"
-        />
-        <ul className="list-decimal marker:text-teal-500">
-          <li>hi</li>
-          <li>hi</li>
-          <li>hi</li>
-        </ul>
-        <details className="select-none open:text-white open:bg-indigo-400">
-          <summary className="cursor-pointer">What is my fav hobby.</summary>
-          <span className="selection:bg-indigo-500 selection:text-white">
-            coding
-          </span>
-        </details>
-      </div>
-      <form className="flex flex-col p-5 space-y-2 ">
-        <input
-          type="text"
-          required
-          placeholder="UserName"
-          className="p-1 border border-gray-400 rounded-md peer"
-        />
-        <span className="hidden peer-invalid:text-red-500 peer-invalid:block">
-          This input is invalid
-        </span>
-        <span className="hidden peer-valid:text-teal-500 peer-valid:block">
-          good choice
-        </span>
-        <input type="submit" value="Login" className="bg-white" />
-      </form>
       <div className="grid min-h-screen gap-10 px-10 py-20 bg-slate-400">
-        <div className="p-6 bg-white shadow-xl rounded-2xl">
+        <div className="p-6 bg-white shadow-xl sm:bg-red-400 rounded-2xl">
           <span className="text-3xl font-semibold">Select Item</span>
           <ul>
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div
-                key={i}
-                className="flex justify-between my-2 odd:bg-blue-500 even:bg-yellow-300"
-              >
-                <span className="text-gray-500">Grey Chair</span>
-                <span className="font-semibold ">$19</span>
-              </div>
-            ))}
+            <div className="flex justify-between my-2 ">
+              <span className="text-gray-500">Grey Chair</span>
+              <span className="font-semibold ">$19</span>
+            </div>
+            <div className="flex justify-between my-2 ">
+              <span className="text-gray-500">Grey Chair</span>
+              <span className="font-semibold ">$19</span>
+            </div>
           </ul>
-          {["a", "b", "c", ""].map((c, i) => (
-            <li className="py-2 bg-red-500 empty:hidden" key={i}>
-              {c}
-            </li>
-          ))}
+
           <div className="flex justify-between pt-2 mt-2 border-t-2 border-dashed">
             <span className="text-gray-500">Total</span>
             <span className="font-semibold">$10</span>
