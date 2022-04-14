@@ -3,8 +3,9 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   return (
     <>
-      <div className="grid min-h-screen gap-10 px-10 py-20 bg-slate-400">
-        <div className="p-6 bg-white shadow-xl sm:bg-red-400 rounded-2xl">
+      <div className="grid min-h-screen gap-10 px-10 py-20 lg:grid-cols-2 xl:grid-cols-3 bg-slate-400 xl:place-content-center">
+        {/* first grid */}
+        <div className="p-6 bg-white shadow-xl rounded-2xl">
           <span className="text-3xl font-semibold">Select Item</span>
           <ul>
             <div className="flex justify-between my-2 ">
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
             Checkout
           </button>
         </div>
-
+        {/* second grid */}
         <div className="overflow-hidden bg-white shadow-xl rounded-2xl group">
           <div className="p-6 bg-blue-500 pb-14">
             <span className="text-2xl text-white ">Profile</span>
@@ -49,8 +50,8 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-
-        <div className="p-6 bg-white shadow-xl rounded-2xl">
+        {/* third grid */}
+        <div className="p-6 bg-white shadow-xl lg:col-span-2 rounded-2xl xl:col-span-1">
           <div className="flex items-center justify-between mb-4">
             <span>⬅️</span>
             <div className="space-x-3">
@@ -86,8 +87,6 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-
-        <div className="p-6 bg-white shadow-xl rounded-2xl"></div>
       </div>
     </>
   );
