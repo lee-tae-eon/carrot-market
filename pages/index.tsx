@@ -11,7 +11,7 @@ const Home: NextPage = () => {
           </span>
           <ul>
             <div className="flex justify-between my-2 ">
-              <span className="text-gray-500 dark:text-gray-100">
+              <span className="text-gray-500 dark:text-[#45b468] ">
                 Grey Chair
               </span>
               <span className="font-semibold dark:text-white">$19</span>
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
               <span className="p-2 rounded-md shadow-xl">❤️</span>
             </div>
           </div>
-          <div className="mb-5 bg-zinc-400 h-72"></div>
+          <div className="mb-5 bg-zinc-400 h-72 bg-[url('/vercel.svg')] bg-center bg-cover"></div>
           <div className="flex flex-col">
             <span className="text-xl font-medium">Swoon Lounge</span>
             <span className="text-xs text-gray-500">Chair</span>
