@@ -5,16 +5,22 @@ const Home: NextPage = () => {
     <>
       <div className="grid min-h-screen gap-10 px-10 py-20 lg:grid-cols-2 xl:grid-cols-3 bg-slate-400 xl:place-content-center">
         {/* first grid */}
-        <div className="flex flex-col items-stretch justify-between p-6 bg-white shadow-xl rounded-2xl">
-          <span className="text-3xl font-semibold">Select Item</span>
+        <div className="flex flex-col items-stretch justify-between p-6 bg-white shadow-xl dark:bg-black rounded-2xl">
+          <span className="text-3xl font-semibold dark:text-white">
+            Select Item
+          </span>
           <ul>
             <div className="flex justify-between my-2 ">
-              <span className="text-gray-500">Grey Chair</span>
-              <span className="font-semibold ">$19</span>
+              <span className="text-gray-500 dark:text-gray-100">
+                Grey Chair
+              </span>
+              <span className="font-semibold dark:text-white">$19</span>
             </div>
             <div className="flex justify-between my-2 ">
-              <span className="text-gray-500">Grey Chair</span>
-              <span className="font-semibold ">$19</span>
+              <span className="text-gray-500 dark:text-gray-100">
+                Grey Chair
+              </span>
+              <span className="font-semibold dark:text-white">$19</span>
             </div>
           </ul>
 
@@ -22,7 +28,7 @@ const Home: NextPage = () => {
             <span className="text-gray-500">Total</span>
             <span className="font-semibold">$10</span>
           </div>
-          <button className="block w-1/2 p-3 mx-auto mt-5 font-semibold text-center text-white transition-all bg-blue-500 rounded-xl hover:bg-teal-500 active:bg-yellow-500">
+          <button className="block w-1/2 p-3 mx-auto mt-5 font-semibold text-center text-white transition-all bg-blue-500 dark:bg-black dark:border-white dark:border rounded-xl dark:hover:text-black dark:hover:bg-white hover:bg-teal-500 active:bg-yellow-500">
             Checkout
           </button>
         </div>
