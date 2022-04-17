@@ -48,7 +48,7 @@ export default function Enter() {
             {method === "email" ? (
               <input
                 type="email"
-                className="w-full py-2 border border-gray-400 appearance-none px3"
+                className="w-full py-2 placeholder-gray-300 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-orange-500 focus:border-orange-500 px3"
                 required
               />
             ) : null}
@@ -59,7 +59,7 @@ export default function Enter() {
               </div>
             ) : null}
           </div>
-          <button>
+          <button className="px-3 py-2 mt-6 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-md shadow-sm hover:bg-orange-600 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none">
             {method === "email" ? "Get login link" : null}
             {method === "phone" ? "Get one-time password" : null}
           </button>
