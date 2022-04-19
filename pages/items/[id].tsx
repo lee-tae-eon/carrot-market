@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 
 const ItemDetail: NextPage = () => {
-  
+  const test = "git"
   return (
     <div className="px-4 py-10">
       <div className="mb-8">
