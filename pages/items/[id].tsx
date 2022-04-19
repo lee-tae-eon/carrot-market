@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 
+
 const ItemDetail: NextPage = () => {
+  
   return (
     <div className="px-4 py-10">
-      <div>
+      <div className="mb-8">
         <div className="h-96 bg-slate-300" />
         <div className="flex items-center py-3 mt-1 space-x-3 border-t border-b cursor-pointer">
           <div className="w-12 h-12 rounded-full bg-slate-300" />
@@ -14,7 +16,7 @@ const ItemDetail: NextPage = () => {
             </p>
           </div>
         </div>
-        <div className="mt-10">
+        <div className="mt-5">
           <h1 className="text-3xl font-bold text-gray-900">Galaxy S50</h1>
           <span className="mt-3 text-3xl text-gray-900">$140</span>
           <p className="my-6 text-base text-gray-700">
@@ -27,11 +29,11 @@ const ItemDetail: NextPage = () => {
             and that ni**a Winston or anybody else is in there, you the first
             motherfucker to get shot. You understand?
           </p>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between space-x-2">
             <button className="flex-1 py-3 font-medium text-white bg-orange-500 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 hover:bg-orange-600">
               Talk to seller
             </button>
-            <button>
+            <button className="p-3 flex justify-center items-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 rounded-md">
               <svg
                 className="w-6 h-6 "
                 xmlns="http://www.w3.org/2000/svg"
