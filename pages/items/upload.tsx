@@ -2,9 +2,9 @@ import type { NextPage } from "next";
 
 const Upload: NextPage = () => {
   return (
-    <div>
+    <div className="px-4 py-16">
       <div>
-        <div>
+        <div className="flex items-center justify-center w-full">
           <label>
             <svg
               className="w-12 h-12"
