@@ -1,12 +1,10 @@
 import type { NextPage } from "next";
 
-
 const ItemDetail: NextPage = () => {
-  const test = "git"
   return (
     <div className="px-4 py-10">
       <div className="mb-8">
-        <div className="h-96 bg-slate-300" />        
+        <div className="h-96 bg-slate-300" />
         <div className="flex items-center py-3 mt-1 space-x-3 border-t border-b cursor-pointer">
           <div className="w-12 h-12 rounded-full bg-slate-300" />
           <div>
@@ -33,7 +31,7 @@ const ItemDetail: NextPage = () => {
             <button className="flex-1 py-3 font-medium text-white bg-orange-500 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 hover:bg-orange-600">
               Talk to seller
             </button>
-            <button className="p-3 flex justify-center items-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 rounded-md">
+            <button className="flex items-center justify-center p-3 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500">
               <svg
                 className="w-6 h-6 "
                 xmlns="http://www.w3.org/2000/svg"
@@ -58,8 +56,8 @@ const ItemDetail: NextPage = () => {
         <div className="grid grid-cols-2 gap-4">
           {[1, 2, 3, 4, 5, 6].map((_, i) => (
             <div key={i}>
-              <div className="mt-6 h-56 w-full bg-slate-300" />
-              <h3 className="text-gray-700 -mb-1">Galaxy S60</h3>
+              <div className="w-full h-56 mt-6 bg-slate-300" />
+              <h3 className="-mb-1 text-gray-700">Galaxy S60</h3>
               <span className="text-sm font-medium text-gray-900">$6</span>
             </div>
           ))}
