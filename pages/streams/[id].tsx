@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
+import Layout from "../../components/layout";
 
 const StreamDetail: NextPage = () => {
   return (
-    <div>
+    <Layout canGoBack>
       <div className="px-3 pt-10 space-y-4 ">
         <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video" />
         <div className="mt-2">
@@ -110,7 +111,7 @@ const StreamDetail: NextPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
