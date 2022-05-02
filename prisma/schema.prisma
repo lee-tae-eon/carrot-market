@@ -12,9 +12,11 @@ datasource db {
 
 // * create data base model
 model User {
-  id     Int     @id @default(autoincrement())
-  name   String
-  phone  Int?    @unique
-  email  String? @unique
-  avatar String?
+  id        Int      @id @default(autoincrement())
+  phone     Int?     @unique
+  email     String?  @unique
+  name      String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
