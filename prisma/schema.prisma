@@ -10,12 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 // * create data base model
 model User {
-  id Int @id @default(autoincrement())
-  name String
-  phone Int? @unique
-  email String? @unique
+  id     Int     @id @default(autoincrement())
+  name   String
+  phone  Int?    @unique
+  email  String? @unique
   avatar String?
 }
