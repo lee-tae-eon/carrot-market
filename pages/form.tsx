@@ -1,65 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+
+// better errors(set, clear, display)
+// have control over inputs
+
+interface FormProps {
+  email: string;
+  password: string;
+  username: string;
+}
 
 export default function Forms() {
-  const [userName, setUserName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [formErrors, setFormErrors] = useState("");
+  const { register, handleSubmit } = useForm<FormProps>({});
 
-  const onUserNameChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-
-    setUserName(value);
-  };
-  const onEmailChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-
-    setEmail(value);
-  };
-  const onPasswordChange = (event: React.SyntheticEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-
-    setPassword(value);
-  };
-
-  const onSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (userName === "" || email === "" || password === "") {
-      setFormErrors("all fields are required");
-    }
-  };
-
-  console.log(userName, email, password);
+  const onValid = (data: FormProps) => {};
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit(onValid)}>
       <input
-        onChange={onUserNameChange}
-        value={userName}
+        {...register("username", {
+          required: "this fields is required",
+        })}
         type="text"
         placeholder="username"
-        required
-        minLength={5}
       />
       <input
-        onChange={onEmailChange}
-        value={email}
+        {...register("email", {
+          required: "required email",
+        })}
         type="email"
         placeholder="Email"
-        required
       />
       <input
-        onChange={onPasswordChange}
-        value={password}
+        {...register("password", {
+          required: "required password",
+        })}
         type="password"
         placeholder="Password"
-        required
       />
       <button className="w-32 h-16 text-center" type="submit">
         Create Account
