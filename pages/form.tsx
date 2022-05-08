@@ -1,43 +1,66 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 
 // better errors(set, clear, display)
 // have control over inputs
 
-interface FormProps {
+interface FormTypes {
   email: string;
   password: string;
   username: string;
 }
 
 export default function Forms() {
-  const { register, handleSubmit } = useForm<FormProps>({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormTypes>({});
 
-  const onValid = (data: FormProps) => {};
+  const onValid = (data: FormTypes) => {
+    console.log("iam valid bby");
+  };
+
+  const onInValid = (errors: FieldErrors) => {
+    console.log(errors, "errors");
+  };
+
+  console.log(errors);
 
   return (
-    <form onSubmit={handleSubmit(onValid)}>
+    <form onSubmit={handleSubmit(onValid, onInValid)}>
       <input
         {...register("username", {
-          required: "this fields is required",
+          required: "user name is required",
+          minLength: {
+            value: 5,
+            message: "username should be longer than 5 chars",
+          },
         })}
         type="text"
         placeholder="username"
       />
+
       <input
         {...register("email", {
-          required: "required email",
+          required: "email is wrong",
+          validate: {
+            notGmail: (value) =>
+              !value.includes("@gmail.com") || "gmail is not allowed",
+          },
         })}
         type="email"
         placeholder="Email"
       />
+      <span>{errors.email?.message}</span>
       <input
         {...register("password", {
-          required: "required password",
+          required: "password is wrong",
         })}
         type="password"
         placeholder="Password"
       />
+      <span>{errors.password?.message}</span>
       <button className="w-32 h-16 text-center" type="submit">
         Create Account
       </button>
