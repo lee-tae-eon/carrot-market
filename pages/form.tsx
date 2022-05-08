@@ -15,7 +15,9 @@ export default function Forms() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormTypes>({});
+  } = useForm<FormTypes>({
+    mode: "onChange",
+  });
 
   const onValid = (data: FormTypes) => {
     console.log("iam valid bby");
@@ -39,8 +41,11 @@ export default function Forms() {
         })}
         type="text"
         placeholder="username"
+        className={`${
+          Boolean(errors.username?.message) ? "border-red-500" : ""
+        } outline-none`}
       />
-
+      <span>{errors.username?.message}</span>
       <input
         {...register("email", {
           required: "email is wrong",
