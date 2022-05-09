@@ -12,7 +12,6 @@ interface EnterForm {
 
 export default function Enter() {
   const [enter, { data, loading, error }] = useMutation("/api/users/enter");
-  const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, reset } = useForm<EnterForm>();
 
   const [method, setMethod] = useState<"email" | "phone">("email");
@@ -26,15 +25,11 @@ export default function Enter() {
   };
 
   const onValid = (data: EnterForm) => {
-    setSubmitting(true);
-    fetch("/api/users/enter", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => setSubmitting(false));
+    if (loading) return;
+    enter(data);
   };
+
+  console.log(data, loading, error);
 
   return (
     <div className="p-5 mt-16">
@@ -92,7 +87,7 @@ export default function Enter() {
           ) : null}
           {method === "email" ? <Button text={"Get login link"} /> : null}
           {method === "phone" ? (
-            <Button text={submitting ? "Loading" : "Get one-time password"} />
+            <Button text={loading ? "Loading" : "Get one-time password"} />
           ) : null}
         </form>
         <div className="mt-8">
