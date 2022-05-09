@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getClass } from "../libs/utils";
+import { getClass } from "../libs/client/utils";
 
 interface LayoutProps {
   title?: string;

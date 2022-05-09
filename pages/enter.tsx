@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "../components/button";
 import Input from "../components/input";
-import { getClass } from "../libs/utils";
+import useMutation from "../libs/client/useMutation";
+import { getClass } from "../libs/client/utils";
 
 interface EnterForm {
   email?: string;
@@ -10,6 +11,7 @@ interface EnterForm {
 }
 
 export default function Enter() {
+  const [enter, { data, loading, error }] = useMutation("/api/users/enter");
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, reset } = useForm<EnterForm>();
 
