@@ -10,7 +10,7 @@ interface EnterForm {
 }
 
 export default function Enter() {
-  const { register, watch, handleSubmit, reset } = useForm<EnterForm>();
+  const { register, handleSubmit, reset } = useForm<EnterForm>();
 
   const [method, setMethod] = useState<"email" | "phone">("email");
   const onEmailClick = () => {
