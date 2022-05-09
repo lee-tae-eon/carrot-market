@@ -1,4 +1,4 @@
-import { getClass } from "../libs/client/utils";
+import { getClass } from "@libs/client/utils";
 
 interface MessageProps {
   message: string;
