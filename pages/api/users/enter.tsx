@@ -5,16 +5,26 @@ import { NextApiRequest, NextApiResponse } from "next";
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { phone, email } = req.body;
   const payLoad = phone ? { phone: +phone } : { email };
-  const user = await client.user.upsert({
-    where: {
-      ...payLoad,
+  // * prisma 의 relation을 이용해서 token을 create할 때
+  // * user가 없는 유저면 생성 후 token까지 생성 있으면 token만 생성 후 connect
+  const token = await client.token.create({
+    data: {
+      payload: "1234",
+      user: {
+        connectOrCreate: {
+          where: {
+            ...payLoad,
+          },
+          create: {
+            name: "Anonymous",
+            ...payLoad,
+          },
+        },
+      },
     },
-    create: {
-      name: "Anonymous",
-      ...payLoad,
-    },
-    update: {},
   });
+
+  console.log(token);
 
   // if (email) {
   //   user = await client.user.findUnique({
