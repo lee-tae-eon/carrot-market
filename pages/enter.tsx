@@ -29,8 +29,6 @@ export default function Enter() {
     enter(data);
   };
 
-  console.log(data, loading, error);
-
   return (
     <div className="p-5 mt-16">
       <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>

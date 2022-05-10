@@ -22,4 +22,16 @@ model User {
   avatar    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tokens    Token[]
+}
+
+// * token & user connect
+// * relation인 user의 경우 db에 저장 되지 않고 실제 저장되는 값은 userId 필드가 저장이 된다.
+model Token {
+  id        Int      @id @default(autoincrement())
+  payload   String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
