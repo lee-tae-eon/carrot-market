@@ -2,22 +2,33 @@ import client from "@libs/server/client";
 import withHandler from "@libs/server/withHandler";
 import { NextApiRequest, NextApiResponse } from "next";
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+interface ResType {
+  ok: boolean;
+  [key: string]: any;
+}
+
+async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   const { phone, email } = req.body;
-  const payLoad = phone ? { phone: +phone } : { email };
-  // * prisma 의 relation을 이용해서 token을 create할 때
-  // * user가 없는 유저면 생성 후 token까지 생성 있으면 token만 생성 후 connect
+  const user = phone ? { phone: +phone } : email ? { email } : null;
+
+  //  user가 없으면.
+  if (!user) return res.status(400).json({ ok: false });
+
+  const payload = Math.floor(100000 + Math.random() * 900000) + "";
+
+  //  prisma 의 relation을 이용해서 token을 create할 때
+  //  user가 없는 유저면 생성 후 token까지 생성 있으면 token만 생성 후 connect
   const token = await client.token.create({
     data: {
-      payload: "1234",
+      payload,
       user: {
         connectOrCreate: {
           where: {
-            ...payLoad,
+            ...user,
           },
           create: {
             name: "Anonymous",
-            ...payLoad,
+            ...user,
           },
         },
       },
@@ -61,7 +72,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   //   console.log(user);
   // }
 
-  return res.status(200).end();
+  return res.status(200).json({
+    ok: true,
+  });
 }
 // * nextjs 가 excute할 껍데기 handler
 export default withHandler("POST", handler);
