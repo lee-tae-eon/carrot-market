@@ -13,7 +13,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
 
   //  user가 없으면.
   if (!user) return res.status(400).json({ ok: false });
-
+  // token 값
   const payload = Math.floor(100000 + Math.random() * 900000) + "";
 
   //  prisma 의 relation을 이용해서 token을 create할 때
