@@ -1,11 +1,6 @@
 import client from "@libs/server/client";
-import withHandler from "@libs/server/withHandler";
+import withHandler, { ResType } from "@libs/server/withHandler";
 import { NextApiRequest, NextApiResponse } from "next";
-
-interface ResType {
-  ok: boolean;
-  [key: string]: any;
-}
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   const { phone, email } = req.body;
@@ -34,43 +29,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       },
     },
   });
-
-  console.log(token);
-
-  // if (email) {
-  //   user = await client.user.findUnique({
-  //     where: {
-  //       email,
-  //     },
-  //   });
-  //   if (!user) {
-  //     console.log("not found . will create.");
-  //     user = await client.user.create({
-  //       data: {
-  //         name: "Anonymous",
-  //         email,
-  //       },
-  //     });
-  //   }
-  //   console.log(user);
-  // }
-  // if (phone) {
-  //   user = await client.user.findUnique({
-  //     where: {
-  //       phone: +phone,
-  //     },
-  //   });
-  //   if (!user) {
-  //     console.log("not found . will create.");
-  //     user = await client.user.create({
-  //       data: {
-  //         name: "Anonymous",
-  //         phone: +phone,
-  //       },
-  //     });
-  //   }
-  //   console.log(user);
-  // }
 
   return res.status(200).json({
     ok: true,
