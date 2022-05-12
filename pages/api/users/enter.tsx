@@ -33,6 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     },
   });
   if (phone) {
+    // twilio set
     await twilioClient.messages.create({
       messagingServiceSid: process.env.TWILIO_MESSAGE_SERVICES_ID,
       to: process.env.DEFAULT_PHONE!,
