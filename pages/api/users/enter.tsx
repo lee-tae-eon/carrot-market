@@ -42,7 +42,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       to: process.env.DEFAULT_PHONE!,
       body: `Your login token is ${payload}`,
     });
-    console.log(message);
   } else if (email) {
     const email = await mail.send({
       from: "eongon@naver.com",
@@ -51,7 +50,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       text: `Your toke is ${payload}`,
       html: `<strong>Your toke is ${payload}</strong>`,
     });
-    console.log(email);
   }
 
   return res.status(200).json({
