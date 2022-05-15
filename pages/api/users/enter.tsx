@@ -37,19 +37,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   });
   if (phone) {
     // twilio set
-    const message = await twilioClient.messages.create({
-      messagingServiceSid: process.env.TWILIO_MESSAGE_SERVICES_ID,
-      to: process.env.DEFAULT_PHONE!,
-      body: `Your login token is ${payload}`,
-    });
+    // const message = await twilioClient.messages.create({
+    //   messagingServiceSid: process.env.TWILIO_MESSAGE_SERVICES_ID,
+    //   to: process.env.DEFAULT_PHONE!,
+    //   body: `Your login token is ${payload}`,
+    // });
   } else if (email) {
-    const email = await mail.send({
-      from: "eongon@naver.com",
-      to: "eongon@naver.com",
-      subject: "Your Carrot Market Verification Email",
-      text: `Your toke is ${payload}`,
-      html: `<strong>Your toke is ${payload}</strong>`,
-    });
+    // const email = await mail.send({
+    //   from: "eongon@naver.com",
+    //   to: "eongon@naver.com",
+    //   subject: "Your Carrot Market Verification Email",
+    //   text: `Your toke is ${payload}`,
+    //   html: `<strong>Your toke is ${payload}</strong>`,
+    // });
   }
 
   return res.status(200).json({
