@@ -10,16 +10,25 @@ import Input from "@components/input";
 interface EnterForm {
   email?: string;
   phone?: string;
-  token?: string;
 }
 
-interface EnterMutationResult {
+interface TokenForm {
+  token: string;
+}
+
+interface MutationResult {
   ok: boolean;
 }
 
 export default function Enter() {
-  const [enter, { data, loading, error }] = useMutation("/api/users/enter");
+  const [enter, { data, loading, error }] =
+    useMutation<MutationResult>("/api/users/enter");
+  const [confirmToken, { data: tokenData, loading: tokenLoading }] =
+    useMutation<MutationResult>("/api/users/confirm");
+
   const { register, handleSubmit, reset } = useForm<EnterForm>();
+  const { register: tokenRegsiter, handleSubmit: tokenHandleSubmit } =
+    useForm<TokenForm>();
 
   const [method, setMethod] = useState<"email" | "phone">("email");
   const onEmailClick = () => {
@@ -36,17 +45,22 @@ export default function Enter() {
     enter(data);
   };
 
+  const onTokenValid = (data: TokenForm) => {
+    if (tokenLoading) return;
+    confirmToken(data);
+  };
+
   return (
     <div className="p-5 mt-16">
       <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
       <div className="mt-12">
         {data?.ok ? (
           <form
-            onSubmit={handleSubmit(onValid)}
+            onSubmit={tokenHandleSubmit(onTokenValid)}
             className="flex flex-col mt-8 space-y-4"
           >
             <Input
-              register={register("token")}
+              register={tokenRegsiter("token")}
               name="token"
               label="Confirmation Token"
               type="number"

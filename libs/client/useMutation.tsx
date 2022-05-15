@@ -11,7 +11,7 @@ type UseMutationResult<T> = [(data: any) => void, UseMutationState<T>];
 export default function useMutation<T = any>(
   url: string
 ): UseMutationResult<T> {
-  const [state, setState] = useState({
+  const [state, setState] = useState<UseMutationState<T>>({
     loading: false,
     data: undefined,
     error: undefined,
@@ -35,6 +35,6 @@ export default function useMutation<T = any>(
       .catch((error) => setState((prev) => ({ ...prev, error })))
       .finally(() => setState((prev) => ({ ...prev, loading: false })));
   }
-
+  console.log(state);
   return [mutation, { ...state }];
 }
