@@ -11,23 +11,17 @@ declare module "iron-session" {
   }
 }
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
-  const { token } = req.body;
-  const exists = await client.token.findUnique({
-    where: {
-      payload: token,
-    },
-    include: { user: true },
+  const profile = await client.user.findUnique({
+    where: { id: req.session.user?.id },
   });
-  if (!exists) return res.status(404).end();
-
-  req.session.user = {
-    id: exists.userId,
-  };
-  await req.session.save();
-  res.status(200).end();
+  console.log(profile);
+  res.json({
+    ok: true,
+    profile,
+  });
 }
 // * nextjs 가 excute할 껍데기 handler
-export default withIronSessionApiRoute(withHandler("POST", handler), {
+export default withIronSessionApiRoute(withHandler("GET", handler), {
   cookieName: "carrotsession",
   password: "6sfasd213g^24dsa@!DGG324y77JJWt27ugadfgmk;'2345.,,dfsfgFsd",
 });

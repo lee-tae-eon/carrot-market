@@ -16,7 +16,7 @@ datasource db {
 // * create data base model User
 model User {
   id        Int      @id @default(autoincrement())
-  phone     BigInt?  @unique
+  phone     String?  @unique
   email     String?  @unique
   name      String
   avatar    String?
