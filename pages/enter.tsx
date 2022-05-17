@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { getClass } from "@libs/client/utils";
@@ -6,6 +6,7 @@ import useMutation from "@libs/client/useMutation";
 
 import Button from "@components/button";
 import Input from "@components/input";
+import { useRouter } from "next/router";
 
 interface EnterForm {
   email?: string;
@@ -49,6 +50,14 @@ export default function Enter() {
     if (tokenLoading) return;
     confirmToken(data);
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (tokenData?.ok) {
+      router.push("/");
+    }
+  }, [tokenData, router]);
 
   return (
     <div className="p-5 mt-16">

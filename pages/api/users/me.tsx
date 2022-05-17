@@ -1,7 +1,7 @@
-import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResType } from "@libs/server/withHandler";
 import client from "@libs/server/client";
+import { withApiSession } from "@libs/server/withSession";
 // declar module
 declare module "iron-session" {
   interface IronSessionData {
@@ -21,7 +21,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   });
 }
 // * nextjs 가 excute할 껍데기 handler
-export default withIronSessionApiRoute(withHandler("GET", handler), {
-  cookieName: "carrotsession",
-  password: "6sfasd213g^24dsa@!DGG324y77JJWt27ugadfgmk;'2345.,,dfsfgFsd",
-});
+export default withApiSession(withHandler("GET", handler));

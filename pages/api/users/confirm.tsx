@@ -1,33 +1,33 @@
-import { withIronSessionApiRoute } from "iron-session/next";
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResType } from "@libs/server/withHandler";
 import client from "@libs/server/client";
-// declar module
-declare module "iron-session" {
-  interface IronSessionData {
-    user?: {
-      id: number;
-    };
-  }
-}
+import { withApiSession } from "@libs/server/withSession";
+
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   const { token } = req.body;
-  const exists = await client.token.findUnique({
+  const foundToken = await client.token.findUnique({
     where: {
       payload: token,
     },
     include: { user: true },
   });
-  if (!exists) return res.status(404).end();
-
+  // token 이 없으면
+  if (!foundToken) return res.status(404).end();
+  // 있으면 session에 id저장
   req.session.user = {
-    id: exists.userId,
+    id: foundToken.userId,
   };
   await req.session.save();
-  res.status(200).end();
+  // token 삭제
+  await client.token.deleteMany({
+    where: {
+      userId: foundToken.userId,
+    },
+  });
+
+  res.json({
+    ok: true,
+  });
 }
 // * nextjs 가 excute할 껍데기 handler
-export default withIronSessionApiRoute(withHandler("POST", handler), {
-  cookieName: "carrotsession",
-  password: "6sfasd213g^24dsa@!DGG324y77JJWt27ugadfgmk;'2345.,,dfsfgFsd",
-});
+export default withApiSession(withHandler("POST", handler));
