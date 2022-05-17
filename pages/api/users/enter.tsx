@@ -57,4 +57,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   });
 }
 // * nextjs 가 excute할 껍데기 handler
-export default withHandler("POST", handler);
+export default withHandler({
+  method: "POST",
+  handler,
+  isPrivate: false,
+});
