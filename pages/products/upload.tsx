@@ -5,6 +5,7 @@ import Button from "@components/button";
 import Input from "@components/input";
 import Layout from "@components/layout";
 import TextArea from "@components/textarea";
+import useMutation from "@libs/client/useMutation";
 
 interface UploadProductForm {
   name: string;
@@ -16,9 +17,11 @@ const Upload: NextPage = () => {
   const { register, handleSubmit } = useForm<UploadProductForm>({
     mode: "onChange",
   });
+  const [uploadProduct, { loading, data }] = useMutation("/api/products");
 
   const onValid = (data: UploadProductForm) => {
-    console.log(data);
+    if (loading) return;
+    uploadProduct(data);
   };
 
   return (
@@ -70,7 +73,7 @@ const Upload: NextPage = () => {
           name="description"
           label="Description"
         />
-        <Button text="Upload item" />
+        <Button text={loading ? "Loading..." : "Upload item"} />
       </form>
     </Layout>
   );
