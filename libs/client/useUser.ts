@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import axios from "axios";
+
 import useSWR from "swr";
 import { useEffect } from "react";
 
@@ -18,11 +18,8 @@ interface GetProfileProps {
   updatedAt: Date;
 }
 
-const fetcher = (url: string) =>
-  axios.get(url).then((response) => response.data);
-
 export default function useUser() {
-  const { data, error } = useSWR<UserMeProps>("/api/users/me", fetcher);
+  const { data, error } = useSWR<UserMeProps>("/api/users/me");
   const router = useRouter();
 
   useEffect(() => {
