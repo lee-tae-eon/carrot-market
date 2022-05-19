@@ -8,7 +8,7 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
   const { user, isLoading } = useUser();
-  console.log(user);
+
   return (
     <Layout title={"홈"} hasTabBar>
       <Head>
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
             hearts={1}
           />
         ))}
-        <FloatingButton href="/items/upload">
+        <FloatingButton href="/products/upload">
           <svg
             className="w-6 h-6"
             xmlns="http://www.w3.org/2000/svg"
