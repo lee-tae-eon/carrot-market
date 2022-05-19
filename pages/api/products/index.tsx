@@ -9,10 +9,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     session: { user },
   } = req;
 
-  await client.product.create({
+  const product = await client.product.create({
     data: {
       name,
-      price,
+      price: +price,
       description,
       image: "hhh",
       user: {
@@ -25,6 +25,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
 
   res.json({
     ok: true,
+    product,
   });
 }
 // * nextjs 가 excute할 껍데기 handler
