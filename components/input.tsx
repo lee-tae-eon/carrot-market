@@ -45,7 +45,6 @@ export default function Input({
             id={name}
             {...register}
             type={type}
-            required={required}
             className="w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none pl-7 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
           />
           <div className="absolute right-0 flex items-center pr-3 pointer-events-none">
