@@ -15,8 +15,8 @@ interface ProductResType {
 
 const Home: NextPage = () => {
   const { user, isLoading } = useUser();
+
   const { data } = useSWR<ProductResType>("/api/products");
-  console.log(data);
 
   return (
     <Layout title={"홈"} hasTabBar>

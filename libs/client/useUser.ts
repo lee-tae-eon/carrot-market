@@ -2,20 +2,11 @@ import { useRouter } from "next/router";
 
 import useSWR from "swr";
 import { useEffect } from "react";
+import { User } from "@prisma/client";
 
 interface UserMeProps {
   ok: boolean;
-  profile: GetProfileProps;
-}
-
-interface GetProfileProps {
-  avatar: string | null;
-  createdAt: Date;
-  email: string | null;
-  id: number;
-  name: string;
-  phone: string | null;
-  updatedAt: Date;
+  profile: User;
 }
 
 export default function useUser() {
