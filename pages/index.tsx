@@ -5,9 +5,18 @@ import Item from "@components/item";
 import Layout from "@components/layout";
 import useUser from "@libs/client/useUser";
 import Head from "next/head";
+import useSWR from "swr";
+import { Product } from "@prisma/client";
+
+interface ProductResType {
+  ok: boolean;
+  products: Product[];
+}
 
 const Home: NextPage = () => {
   const { user, isLoading } = useUser();
+  const { data } = useSWR<ProductResType>("/api/products");
+  console.log(data);
 
   return (
     <Layout title={"홈"} hasTabBar>
@@ -15,12 +24,12 @@ const Home: NextPage = () => {
         <title>HOME</title>
       </Head>
       <div className="flex flex-col py-10 space-y-5">
-        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
+        {data?.products?.map((product) => (
           <Item
-            id={i}
-            key={i}
-            title="i phone 14"
-            price={99}
+            id={product.id}
+            key={product.id}
+            title={product.name}
+            price={product.price}
             comments={1}
             hearts={1}
           />
