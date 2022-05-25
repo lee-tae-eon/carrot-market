@@ -7,8 +7,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SWRConfig
       value={{
-        refreshInterval: 2000,
-
         fetcher: (url: string) =>
           axios.get(url).then((response) => response.data),
       }}
