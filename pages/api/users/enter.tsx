@@ -9,7 +9,7 @@ mail.setApiKey(process.env.SENDGRID_APIKEY!);
 const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
-  const { phone, email } = req.body;
+  const { phone, email, name } = req.body;
   const user = phone ? { phone } : email ? { email } : null;
 
   //  user가 없으면.
@@ -28,7 +28,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
             ...user,
           },
           create: {
-            name: "Anonymous",
+            name,
             ...user,
           },
         },

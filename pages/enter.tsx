@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 interface EnterForm {
   email?: string;
   phone?: string;
+  name: string;
 }
 
 interface TokenForm {
@@ -114,23 +115,41 @@ export default function Enter() {
               className="flex flex-col mt-8 space-y-4"
             >
               {method === "email" ? (
-                <Input
-                  register={register("email")}
-                  name="email"
-                  label="Email address"
-                  type="email"
-                  required
-                />
+                <>
+                  <Input
+                    register={register("email")}
+                    name="email"
+                    label="Email address"
+                    type="email"
+                    required
+                  />
+                  <Input
+                    register={register("name")}
+                    name="name"
+                    label="Name"
+                    type="text"
+                    required
+                  />
+                </>
               ) : null}
               {method === "phone" ? (
-                <Input
-                  register={register("phone")}
-                  name="phone"
-                  label="Phone number"
-                  type="number"
-                  kind="phone"
-                  required
-                />
+                <>
+                  <Input
+                    register={register("phone")}
+                    name="phone"
+                    label="Phone number"
+                    type="number"
+                    kind="phone"
+                    required
+                  />
+                  <Input
+                    register={register("name")}
+                    name="name"
+                    label="Name"
+                    type="text"
+                    required
+                  />
+                </>
               ) : null}
               {method === "email" ? <Button text={"Get login link"} /> : null}
               {method === "phone" ? (
