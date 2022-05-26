@@ -5,13 +5,24 @@ import { useRouter } from "next/router";
 
 import Button from "@components/button";
 import Layout from "@components/layout";
+import { Product, User } from "@prisma/client";
+
+interface ProductWidthUser extends Product {
+  user: User;
+}
+
+interface ItemDetailResponse {
+  ok: boolean;
+  product: ProductWidthUser;
+}
 
 const ItemDetail: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useSWR(router.query.id ? `/api/products/${id}` : null);
-  console.log(data);
+  const { data } = useSWR<ItemDetailResponse>(
+    router.query.id ? `/api/products/${id}` : null
+  );
 
   return (
     <Layout canGoBack>
