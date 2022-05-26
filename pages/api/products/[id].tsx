@@ -20,8 +20,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       },
     },
   });
+  const terms = product?.name.split(" ").map((word) => ({
+    name: {
+      contains: word,
+    },
+  }));
+  const relateProducts = await client.product.findMany({
+    where: {
+      OR: terms,
+      AND: {
+        id: {
+          not: product?.id,
+        },
+      },
+    },
+  });
 
-  res.json({ ok: true, product });
+  res.json({ ok: true, product, relateProducts });
 }
 // * nextjs 가 excute할 껍데기 handler
 export default withApiSession(
