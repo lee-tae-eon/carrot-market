@@ -4,7 +4,26 @@ import client from "@libs/server/client";
 import { withApiSession } from "@libs/server/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
-  const { id } = req.query;
+  const {
+    query: { id },
+    session: { user },
+  } = req;
+
+  const aleadyExist = await client.fav.findFirst({
+    where: {
+      productId: +id.toString(),
+      userId: user?.id,
+    },
+  });
+
+  if (aleadyExist) {
+    await client.fav.delete({
+      where: {
+        id: aleadyExist.id,
+      },
+    });
+  } else {
+  }
 
   res.json({ ok: true });
 }
