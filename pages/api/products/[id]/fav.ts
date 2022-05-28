@@ -23,6 +23,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       },
     });
   } else {
+    await client.fav.create({
+      data: {
+        user: {
+          connect: {
+            id: user?.id,
+          },
+        },
+        product: {
+          connect: {
+            id: +id.toString(),
+          },
+        },
+      },
+    });
   }
 
   res.json({ ok: true });
