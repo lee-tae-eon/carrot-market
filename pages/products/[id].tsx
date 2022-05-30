@@ -31,9 +31,9 @@ const ItemDetail: NextPage = () => {
   const [toggleFav] = useMutation(`/api/products/${id}/fav`);
 
   const onFavClick = () => {
-    toggleFav({});
     if (!data) return;
     mutate({ ...data, isLiked: !data.isLiked }, false);
+    toggleFav({});
   };
 
   return (
