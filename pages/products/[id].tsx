@@ -24,7 +24,7 @@ const ItemDetail: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data } = useSWR<ItemDetailResponse>(
+  const { data, mutate } = useSWR<ItemDetailResponse>(
     router.query.id ? `/api/products/${id}` : null
   );
 
@@ -32,6 +32,8 @@ const ItemDetail: NextPage = () => {
 
   const onFavClick = () => {
     toggleFav({});
+    if (!data) return;
+    mutate({ ...data, isLiked: !data.isLiked }, false);
   };
 
   return (
@@ -110,7 +112,7 @@ const ItemDetail: NextPage = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
           <div className="grid grid-cols-2 gap-4">
-            {data?.relateProducts.map((item) => (
+            {data?.relateProducts?.map((item) => (
               <div key={item.id}>
                 <Link href={`/products/${item.id}`}>
                   <a>
