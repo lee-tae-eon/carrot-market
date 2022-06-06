@@ -15,19 +15,19 @@ datasource db {
 
 // * create data base model User
 model User {
-  id        Int         @id @default(autoincrement())
-  phone     String?     @unique
-  email     String?     @unique
-  name      String
-  avatar    String?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  tokens    Token[]
-  products  Product[]
-  fav       Fav[]
-  Post      Post[]
-  Answer    Answer[]
-  Wondering Wondering[]
+  id         Int         @id @default(autoincrement())
+  phone      String?     @unique
+  email      String?     @unique
+  name       String
+  avatar     String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  tokens     Token[]
+  products   Product[]
+  fav        Fav[]
+  posts      Post[]
+  answers    Answer[]
+  wonderings Wondering[]
 }
 
 // * token & user connect
@@ -67,14 +67,14 @@ model Fav {
 }
 
 model Post {
-  id        Int         @id @default(autoincrement())
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int
-  question  String      @db.MediumText
-  answers   Answer[]
-  Wondering Wondering[]
+  id         Int         @id @default(autoincrement())
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  question   String      @db.MediumText
+  answers    Answer[]
+  wonderings Wondering[]
 }
 
 model Answer {
