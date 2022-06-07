@@ -1,8 +1,26 @@
 import type { NextPage } from "next";
 import Layout from "@components/layout";
 import TextArea from "@components/textarea";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import { Post, User } from "@prisma/client";
+import Link from "next/link";
+
+interface PostWithUserType extends Post {
+  user: User;
+}
+
+interface CommunityPostResponse {
+  ok: boolean;
+  post: PostWithUserType;
+}
 
 const CommunityPostDetail: NextPage = () => {
+  const router = useRouter();
+  const { data, error } = useSWR<CommunityPostResponse>(
+    router.query.id ? `/api/posts/${router.query.id}` : null
+  );
+  console.log(data);
   return (
     <Layout canGoBack>
       <div className="pt-4">
@@ -12,16 +30,22 @@ const CommunityPostDetail: NextPage = () => {
         <div className="flex items-center px-4 pb-3 mb-3 space-x-3 border-b cursor-pointer">
           <div className="w-10 h-10 rounded-full bg-slate-300" />
           <div>
-            <p className="text-sm font-medium text-gray-700">Steve Jebs</p>
+            <p className="text-sm font-medium text-gray-700">
+              {data?.post.user.name}
+            </p>
             <p className="text-xs font-medium text-gray-500">
-              View profile &rarr;
+              <Link href={`/users/profiles/${data?.post?.user?.name}`}>
+                <a className="text-xs font-medium text-gray-500">
+                  View profile &rarr;
+                </a>
+              </Link>
             </p>
           </div>
         </div>
         <div>
           <div className="px-4 mt-2 text-gray-700">
-            <span className="font-medium text-orange-500">Q.</span> What is the
-            best mandu restaurant?
+            <span className="font-medium text-orange-500">Q.</span>{" "}
+            {data?.post?.question}
           </div>
           <div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[2px]  w-full">
             <span className="flex items-center space-x-2 text-sm">
