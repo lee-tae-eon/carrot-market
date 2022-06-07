@@ -1,24 +1,38 @@
+import { useEffect } from "react";
 import type { NextPage } from "next";
+import { useForm } from "react-hook-form";
+
 import Button from "@components/button";
 import Layout from "@components/layout";
 import TextArea from "@components/textarea";
-import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
-import { useEffect } from "react";
+import { Post } from "@prisma/client";
+import { useRouter } from "next/router";
 
 interface WriteFormProps {
   question: string;
 }
 
+interface WriteResponseType {
+  ok: boolean;
+  post: Post;
+}
+
 const Write: NextPage = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<WriteFormProps>();
-  const [post, { loading, data }] = useMutation("/api/posts");
+  const [post, { loading, data }] =
+    useMutation<WriteResponseType>("/api/posts");
   const onValid = (data: WriteFormProps) => {
     if (loading) return;
     post(data);
   };
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    if (data && data.ok) {
+      router.push(`/community/${data.post.id}`);
+    }
+  }, [data, router]);
   return (
     <Layout canGoBack title="Write Post">
       <form onSubmit={handleSubmit(onValid)} className="p-4 space-y-4">
