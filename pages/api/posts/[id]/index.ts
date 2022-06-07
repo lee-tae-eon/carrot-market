@@ -6,6 +6,7 @@ import { withApiSession } from "@libs/server/withSession";
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   const {
     query: { id },
+    session: { user },
   } = req;
 
   const post = await client.post.findUnique({
@@ -42,9 +43,22 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     },
   });
 
+  const isWondering = Boolean(
+    await client.wondering.findFirst({
+      where: {
+        postId: +id.toString(),
+        userId: user?.id,
+      },
+      select: {
+        id: true,
+      },
+    })
+  );
+
   res.json({
     ok: true,
     post,
+    isWondering,
   });
 }
 // * nextjs 가 excute할 껍데기 handler
