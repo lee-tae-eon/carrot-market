@@ -20,6 +20,25 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
           avatar: true,
         },
       },
+      answers: {
+        select: {
+          answer: true,
+          id: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              avatar: true,
+            },
+          },
+        },
+      },
+      _count: {
+        select: {
+          answers: true,
+          wonderings: true,
+        },
+      },
     },
   });
 
