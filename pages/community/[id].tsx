@@ -40,6 +40,8 @@ const CommunityPostDetail: NextPage = () => {
   const [wonder, { loading }] = useMutation(
     `/api/posts/${router.query.id}/wonder`
   );
+  const [sendAnswer, { data: answerData, loading: answerLoading }] =
+    useMutation(`/api/posts/${router.query.id}/answers`);
   const onWonderClick = () => {
     if (!data) return;
     mutate(
@@ -63,8 +65,9 @@ const CommunityPostDetail: NextPage = () => {
     }
   };
 
-  const onValid = (data: AnswerForm) => {
-    console.log(data);
+  const onValid = (formData: AnswerForm) => {
+    if (answerLoading) return;
+    sendAnswer(formData);
   };
 
   return (
