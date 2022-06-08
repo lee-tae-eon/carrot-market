@@ -8,6 +8,7 @@ import Link from "next/link";
 import useUser from "@libs/client/useUser";
 import useMutation from "@libs/client/useMutation";
 import { getClass } from "@libs/client/utils";
+import { useForm } from "react-hook-form";
 
 interface AnswerWithUserType extends Answer {
   user: User;
@@ -25,13 +26,20 @@ interface CommunityPostResponse {
   isWondering: boolean;
 }
 
+interface AnswerForm {
+  answer: string;
+}
+
 const CommunityPostDetail: NextPage = () => {
   const router = useRouter();
-  const { user } = useUser();
+  const { register, handleSubmit } = useForm<AnswerForm>();
+
   const { data, error, mutate } = useSWR<CommunityPostResponse>(
     router.query.id ? `/api/posts/${router.query.id}` : null
   );
-  const [wonder] = useMutation(`/api/posts/${router.query.id}/wonder`);
+  const [wonder, { loading }] = useMutation(
+    `/api/posts/${router.query.id}/wonder`
+  );
   const onWonderClick = () => {
     if (!data) return;
     mutate(
@@ -50,8 +58,15 @@ const CommunityPostDetail: NextPage = () => {
       },
       false
     );
-    wonder({});
+    if (!loading) {
+      wonder({});
+    }
   };
+
+  const onValid = (data: AnswerForm) => {
+    console.log(data);
+  };
+
   return (
     <Layout canGoBack>
       <div className="pt-4">
@@ -137,16 +152,17 @@ const CommunityPostDetail: NextPage = () => {
             </div>
           ))}
         </div>
-        <div className="px-4">
+        <form onSubmit={handleSubmit(onValid)} className="px-4">
           <TextArea
             name="description"
             placeholder="Answer this question!"
             required
+            register={register("answer", { required: true, minLength: 5 })}
           />
           <button className="w-full px-4 py-2 mt-2 text-sm font-medium text-white bg-orange-500 border border-transparent rounded-md shadow-sm hover:bg-orange-600 focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none ">
             Reply
           </button>
-        </div>
+        </form>
       </div>
     </Layout>
   );
