@@ -9,26 +9,37 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     session: { user },
   } = req;
 
-  const post = await client.post.create({
-    data: {
-      question,
-      user: {
-        connect: {
-          id: user?.id,
+  if (req.method === "POST") {
+    const post = await client.post.create({
+      data: {
+        question,
+        user: {
+          connect: {
+            id: user?.id,
+          },
         },
       },
-    },
-  });
+    });
 
-  res.json({
-    ok: true,
-    post,
-  });
+    res.json({
+      ok: true,
+      post,
+    });
+  }
+
+  if (req.method === "GET") {
+    const posts = await client.post.findMany({});
+
+    res.json({
+      ok: true,
+      posts,
+    });
+  }
 }
 // * nextjs 가 excute할 껍데기 handler
 export default withApiSession(
   withHandler({
-    method: ["POST"],
+    method: ["POST", "GET"],
     handler,
   })
 );
