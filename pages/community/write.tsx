@@ -19,6 +19,7 @@ interface WriteResponseType {
 }
 
 const Write: NextPage = () => {
+  // const {latitude, logitude} = useCoords()
   const router = useRouter();
   const { register, handleSubmit } = useForm<WriteFormProps>();
   const [post, { loading, data }] =
