@@ -6,6 +6,7 @@ import Button from "@components/button";
 import Layout from "@components/layout";
 import TextArea from "@components/textarea";
 import useMutation from "@libs/client/useMutation";
+import useCoords from "@libs/client/useCoords";
 import { Post } from "@prisma/client";
 import { useRouter } from "next/router";
 
@@ -19,7 +20,7 @@ interface WriteResponseType {
 }
 
 const Write: NextPage = () => {
-  // const {latitude, logitude} = useCoords()
+  const { latitude, longitude } = useCoords();
   const router = useRouter();
   const { register, handleSubmit } = useForm<WriteFormProps>();
   const [post, { loading, data }] =
