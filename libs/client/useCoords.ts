@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface UseCoordsState {
   longitude: number | null;
@@ -10,5 +10,16 @@ export default function useCoords() {
     latitude: null,
     longitude: null,
   });
+
+  const onSuccess = ({
+    coords: { latitude, longitude },
+  }: GeolocationPosition) => {
+    setCoords({ latitude, longitude });
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(onSuccess);
+  }, []);
+
   return coords;
 }
