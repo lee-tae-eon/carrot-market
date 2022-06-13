@@ -4,12 +4,11 @@ import client from "@libs/server/client";
 import { withApiSession } from "@libs/server/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
-  const {
-    body: { question, latitude, longitude },
-    session: { user },
-  } = req;
-
   if (req.method === "POST") {
+    const {
+      body: { question, latitude, longitude },
+      session: { user },
+    } = req;
     const post = await client.post.create({
       data: {
         question,
@@ -30,6 +29,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   }
 
   if (req.method === "GET") {
+    const {
+      query: { latitude, longitude },
+    } = req;
+    const latNum = parseFloat(latitude.toString());
+    const longNum = parseFloat(longitude.toString());
     const posts = await client.post.findMany({
       include: {
         user: {
@@ -44,6 +48,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
             wonderings: true,
             answers: true,
           },
+        },
+      },
+      where: {
+        latitude: {
+          gte: latNum - 0.01,
+          lte: latNum + 0.01,
+        },
+        longitude: {
+          gte: longNum - 0.01,
+          lte: longNum + 0.01,
         },
       },
     });
