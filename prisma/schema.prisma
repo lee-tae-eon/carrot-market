@@ -32,6 +32,7 @@ model User {
   receivedReviews Review[]    @relation(name: "receivedReviews")
   sales           Sale[]
   purchases       Purchase[]
+  records         Record[]
 }
 
 // * token & user connect
@@ -60,16 +61,7 @@ model Product {
   fav         Fav[]
   sales       Sale[]
   purchases   Purchase[]
-}
-
-model Fav {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userId    Int
-  productId Int
+  record      Record[]
 }
 
 model Post {
@@ -83,6 +75,7 @@ model Post {
   wonderings Wondering[]
   latitude   Float?
   longitude  Float?
+
 }
 
 model Answer {
@@ -135,4 +128,31 @@ model Purchase {
   updatedAt DateTime @updatedAt
   userId    Int
   productId Int
+}
+
+model Fav {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  productId Int
+}
+
+model Record {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+  createdAt DateTime @default(now())
+  kind      Kind
+  updatedAt DateTime @updatedAt
+}
+
+enum Kind {
+  Purchase
+  Sale
+  Fav
 }
