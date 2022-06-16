@@ -12,6 +12,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     where: {
       createdForId: user?.id,
     },
+    include: {
+      createdBy: { select: { id: true, name: true, avatar: true } },
+    },
   });
 
   res.json({
