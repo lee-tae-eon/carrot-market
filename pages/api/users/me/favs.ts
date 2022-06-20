@@ -12,6 +12,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     where: {
       userId: user?.id,
     },
+    include: {
+      product: true,
+    },
   });
 
   res.json({
