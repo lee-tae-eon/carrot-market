@@ -61,7 +61,7 @@ export default function Enter() {
     }
   }, [tokenData, router]);
 
-  useUser(Boolean(router.pathname === "/enter"));
+  useUser(router.pathname);
 
   return (
     <div className="p-5 mt-16">

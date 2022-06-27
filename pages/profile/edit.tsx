@@ -26,7 +26,7 @@ const EditProfile: NextPage = () => {
   useEffect(() => {
     setValue("email", user?.email || "");
     setValue("phone", user?.phone || "");
-  }, [user]);
+  }, [user, setValue]);
 
   const onValid = ({ email, phone }: EditProfileForm) => {
     if (email === "" && phone === "") {

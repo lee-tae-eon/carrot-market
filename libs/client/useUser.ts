@@ -6,21 +6,20 @@ import { User } from "@prisma/client";
 
 interface UserMeProps {
   ok: boolean;
-  errors?: string;
   profile: User;
 }
 
-export default function useUser(isEnter?: boolean) {
+export default function useUser(isEnter?: string) {
   const { data, error } = useSWR<UserMeProps>("/api/users/me");
   const router = useRouter();
 
   useEffect(() => {
-    if (!data?.ok && !isEnter) {
+    if (data && !data?.ok) {
       router.replace("/enter");
-    } else if (isEnter && data && data.ok) {
+    } else if (isEnter === "/enter" && data && data.ok) {
       router.replace("/");
     }
-  }, [data, router]);
+  }, [data, router, isEnter]);
 
   return { user: data?.profile, isLoading: !data && !error };
 }
