@@ -6,7 +6,7 @@ import { User } from "@prisma/client";
 
 interface UserMeProps {
   ok: boolean;
-  errors: string;
+  errors?: string;
   profile: User;
 }
 
