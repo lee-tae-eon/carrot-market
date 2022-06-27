@@ -9,13 +9,15 @@ interface UserMeProps {
   profile: User;
 }
 
-export default function useUser() {
+export default function useUser(isEnter?: boolean) {
   const { data, error } = useSWR<UserMeProps>("/api/users/me");
   const router = useRouter();
 
   useEffect(() => {
-    if (data && !data.ok) {
+    if (data && !data.ok && !isEnter) {
       router.replace("/enter");
+    } else if (isEnter && data && data.ok) {
+      router.replace("/");
     }
   }, [data, router]);
 

@@ -7,6 +7,7 @@ import useMutation from "@libs/client/useMutation";
 import Button from "@components/button";
 import Input from "@components/input";
 import { useRouter } from "next/router";
+import useUser from "@libs/client/useUser";
 
 interface EnterForm {
   email?: string;
@@ -59,6 +60,8 @@ export default function Enter() {
       router.push("/");
     }
   }, [tokenData, router]);
+
+  useUser(Boolean(router.pathname === "/enter"));
 
   return (
     <div className="p-5 mt-16">
