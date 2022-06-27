@@ -6,6 +6,7 @@ import { User } from "@prisma/client";
 
 interface UserMeProps {
   ok: boolean;
+  errors: string;
   profile: User;
 }
 
@@ -14,7 +15,7 @@ export default function useUser(isEnter?: boolean) {
   const router = useRouter();
 
   useEffect(() => {
-    if (data && !data.ok && !isEnter) {
+    if (!data?.ok && !isEnter) {
       router.replace("/enter");
     } else if (isEnter && data && data.ok) {
       router.replace("/");
