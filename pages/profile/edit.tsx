@@ -5,19 +5,40 @@ import Layout from "@components/layout";
 import Button from "@components/button";
 import Input from "@components/input";
 import useUser from "@libs/client/useUser";
+import { useEffect } from "react";
 
 interface EditProfileForm {
   email?: string;
   phone?: string;
+  formErrors?: string;
 }
 
 const EditProfile: NextPage = () => {
   const { user } = useUser();
-  const { register, handleSubmit } = useForm<EditProfileForm>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    formState: { errors },
+  } = useForm<EditProfileForm>();
+
+  useEffect(() => {
+    setValue("email", user?.email || "");
+    setValue("phone", user?.phone || "");
+  }, [user]);
+
+  const onValid = ({ email, phone }: EditProfileForm) => {
+    if (email === "" && phone === "") {
+      setError("formErrors", {
+        message: "Email or phone number are required. You need to choose one.",
+      });
+    }
+  };
 
   return (
     <Layout canGoBack title="Edit Profile">
-      <form className="px-4 py-10 space-y-4">
+      <form onSubmit={handleSubmit(onValid)} className="px-4 py-10 space-y-4">
         <div className="flex items-center space-x-3">
           <div className="rounded-full w-14 h-14 bg-slate-500" />
           <label
@@ -35,19 +56,24 @@ const EditProfile: NextPage = () => {
         </div>
         <Input
           register={register("email")}
-          required
+          required={false}
           label="Email address"
           name="email"
           type="email"
         />
         <Input
           register={register("phone")}
-          required
+          required={false}
           label="Phone number"
           name="phone"
           type="number"
           kind="phone"
         />
+        {errors.formErrors?.message && (
+          <span className="block my-2 font-bold text-red-400">
+            {errors.formErrors?.message}
+          </span>
+        )}
         <Button text="Update profile" />
       </form>
     </Layout>
