@@ -7,8 +7,9 @@ import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-
+  // * app 전체를 user protection
   useUser(router.pathname);
+
   return (
     <SWRConfig
       value={{
