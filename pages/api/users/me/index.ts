@@ -4,19 +4,78 @@ import client from "@libs/server/client";
 import { withApiSession } from "@libs/server/withSession";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
-  const profile = await client.user.findUnique({
-    where: { id: req.session.user?.id },
-  });
+  if (req.method === "GET") {
+    const profile = await client.user.findUnique({
+      where: { id: req.session.user?.id },
+    });
 
-  res.json({
-    ok: true,
-    profile,
-  });
+    res.json({
+      ok: true,
+      profile,
+    });
+  }
+  if (req.method === "POST") {
+    const {
+      session: { user },
+      body: { email, phone },
+    } = req;
+    if (email) {
+      const alreadyExists = Boolean(
+        await client.user.findUnique({
+          where: {
+            email,
+          },
+          select: {
+            id: true,
+          },
+        })
+      );
+
+      if (alreadyExists) {
+        return res.json({ ok: false, error: "Email already in use" });
+      }
+
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          email,
+        },
+      });
+      res.json({ ok: true });
+    } else if (phone) {
+      const alreadyExists = Boolean(
+        await client.user.findUnique({
+          where: {
+            phone,
+          },
+          select: {
+            id: true,
+          },
+        })
+      );
+
+      if (alreadyExists) {
+        return res.json({ ok: false, error: "Phone already in use" });
+      }
+
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          phone,
+        },
+      });
+      res.json({ ok: true });
+    }
+  }
 }
 // * nextjs 가 excute할 껍데기 handler
 export default withApiSession(
   withHandler({
-    method: ["GET"],
+    method: ["GET", "POST"],
     handler,
   })
 );
