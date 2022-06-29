@@ -6,6 +6,7 @@ import Button from "@components/button";
 import Input from "@components/input";
 import useUser from "@libs/client/useUser";
 import { useEffect } from "react";
+import useMutation from "@libs/client/useMutation";
 
 interface EditProfileForm {
   email?: string;
@@ -23,6 +24,8 @@ const EditProfile: NextPage = () => {
     formState: { errors },
   } = useForm<EditProfileForm>();
 
+  const [editProfile, { data, loading }] = useMutation(`/api/users/me`);
+
   useEffect(() => {
     setValue("email", user?.email || "");
     setValue("phone", user?.phone || "");
@@ -30,10 +33,12 @@ const EditProfile: NextPage = () => {
 
   const onValid = ({ email, phone }: EditProfileForm) => {
     if (email === "" && phone === "") {
-      setError("formErrors", {
+      return setError("formErrors", {
         message: "Email or phone number are required. You need to choose one.",
       });
     }
+
+    editProfile({ email, phone });
   };
 
   return (
