@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import useMutation from "@libs/client/useMutation";
 
 interface EditProfileForm {
+  name?: string;
   email?: string;
   phone?: string;
   formErrors?: string;
@@ -35,20 +36,23 @@ const EditProfile: NextPage = () => {
   useEffect(() => {
     setValue("email", user?.email || "");
     setValue("phone", user?.phone || "");
+    setValue("name", user?.name || "");
   }, [user, setValue]);
 
-  const onValid = ({ email, phone }: EditProfileForm) => {
+  const onValid = ({ email, phone, name }: EditProfileForm) => {
     if (loading) return;
 
-    if (email === "" && phone === "") {
+    if (email === "" && phone === "" && name !== "") {
       return setError("formErrors", {
-        message: "Email or phone number are required. You need to choose one.",
+        message:
+          "Email or phone number or name are required. You need to choose one.",
       });
     }
 
     editProfile({
       email,
       phone,
+      name,
     });
   };
 
@@ -76,6 +80,13 @@ const EditProfile: NextPage = () => {
             />
           </label>
         </div>
+        <Input
+          register={register("name")}
+          required={false}
+          label="Name"
+          name="name"
+          type="text"
+        />
         <Input
           register={register("email")}
           required={false}
