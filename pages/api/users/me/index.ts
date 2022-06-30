@@ -19,7 +19,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       session: { user },
       body: { email, phone },
     } = req;
-    if (email) {
+    const currentUser = await client.user.findUnique({
+      where: {
+        id: user?.id,
+      },
+    });
+
+    if (email && email !== currentUser?.email) {
       const alreadyExists = Boolean(
         await client.user.findUnique({
           where: {
@@ -44,7 +50,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
         },
       });
       res.json({ ok: true });
-    } else if (phone) {
+    }
+    if (phone && phone !== currentUser?.phone) {
       const alreadyExists = Boolean(
         await client.user.findUnique({
           where: {
@@ -71,6 +78,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       res.json({ ok: true });
     }
   }
+  res.json({ ok: true });
 }
 // * nextjs 가 excute할 껍데기 handler
 export default withApiSession(
