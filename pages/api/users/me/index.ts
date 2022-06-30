@@ -17,13 +17,24 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   if (req.method === "POST") {
     const {
       session: { user },
-      body: { email, phone },
+      body: { email, phone, name },
     } = req;
     const currentUser = await client.user.findUnique({
       where: {
         id: user?.id,
       },
     });
+    if (name && name !== currentUser?.name) {
+      await client.user.update({
+        where: {
+          id: user?.id,
+        },
+        data: {
+          name,
+        },
+      });
+      res.json({ ok: true });
+    }
 
     if (email && email !== currentUser?.email) {
       const alreadyExists = Boolean(
