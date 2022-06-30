@@ -8,7 +8,7 @@ const Stream: NextPage = () => {
     <Layout title="라이브" hasTabBar>
       <div className="py-10 space-y-4 divide-y-2 ">
         {[1, 2, 3, 4, 5].map((_, i) => (
-          <Link key={i} href={`/live/${i}`}>
+          <Link key={i} href={`/streams/${i}`}>
             <a className="block px-4 pt-4">
               <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video" />
               <h1 className="mt-2 text-2xl font-bold text-gray-900">
@@ -17,7 +17,7 @@ const Stream: NextPage = () => {
             </a>
           </Link>
         ))}
-        <FloatingButton href="/live/create">
+        <FloatingButton href="/streams/create">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6"
