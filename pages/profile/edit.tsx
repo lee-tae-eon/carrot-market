@@ -14,6 +14,11 @@ interface EditProfileForm {
   formErrors?: string;
 }
 
+interface EditProfileResponse {
+  ok: boolean;
+  error?: string;
+}
+
 const EditProfile: NextPage = () => {
   const { user } = useUser();
   const {
@@ -22,9 +27,10 @@ const EditProfile: NextPage = () => {
     setValue,
     setError,
     formState: { errors },
-  } = useForm<EditProfileForm>();
+  } = useForm<EditProfileForm>({});
 
-  const [editProfile, { data, loading }] = useMutation(`/api/users/me`);
+  const [editProfile, { data, loading }] =
+    useMutation<EditProfileResponse>(`/api/users/me`);
 
   useEffect(() => {
     setValue("email", user?.email || "");
@@ -32,14 +38,25 @@ const EditProfile: NextPage = () => {
   }, [user, setValue]);
 
   const onValid = ({ email, phone }: EditProfileForm) => {
+    if (loading) return;
+
     if (email === "" && phone === "") {
       return setError("formErrors", {
         message: "Email or phone number are required. You need to choose one.",
       });
     }
 
-    editProfile({ email, phone });
+    editProfile({
+      email,
+      phone,
+    });
   };
+
+  useEffect(() => {
+    if (data && !data?.ok && data?.error) {
+      setError("formErrors", { message: data.error });
+    }
+  }, [data, setError]);
 
   return (
     <Layout canGoBack title="Edit Profile">
@@ -79,7 +96,7 @@ const EditProfile: NextPage = () => {
             {errors.formErrors?.message}
           </span>
         )}
-        <Button text="Update profile" />
+        <Button text={loading ? "loading..." : "Update profile"} />
       </form>
     </Layout>
   );
