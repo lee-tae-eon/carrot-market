@@ -2,9 +2,18 @@ import Button from "@components/button";
 import Input from "@components/input";
 import Layout from "@components/layout";
 import TextArea from "@components/textarea";
+import useMutation from "@libs/client/useMutation";
+import { Stream } from "@prisma/client";
 import type { NextPage } from "next";
+
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
+interface CreateResponse {
+  ok: boolean;
+  stream: Stream;
+}
 interface CreateForm {
   name: string;
   price: string;
@@ -12,10 +21,26 @@ interface CreateForm {
 }
 
 const Create: NextPage = () => {
-  const { handleSubmit, register } = useForm();
+  const router = useRouter();
+  const [createStream, { data, loading }] =
+    useMutation<CreateResponse>(`/api/streams`);
+
+  const { handleSubmit, register } = useForm<CreateForm>();
+
+  const onValid = (formData: CreateForm) => {
+    if (loading) return;
+    createStream(formData);
+  };
+
+  useEffect(() => {
+    if (data && data.ok) {
+      router.push(`/stream/${data.stream.id}`);
+    }
+  }, [data]);
+
   return (
     <Layout canGoBack title="Go Live">
-      <form className="px-4 py-10 space-y-4 ">
+      <form onSubmit={handleSubmit(onValid)} className="px-4 py-10 space-y-4 ">
         <Input
           register={register("name")}
           required
@@ -37,7 +62,7 @@ const Create: NextPage = () => {
           name="description"
           label="Description"
         />
-        <Button text="Go live" />
+        <Button text={loading ? "Loading..." : "Go Live"} />
       </form>
     </Layout>
   );
