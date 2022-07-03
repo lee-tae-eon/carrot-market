@@ -36,7 +36,7 @@ const Create: NextPage = () => {
     if (data && data.ok) {
       router.push(`/stream/${data.stream.id}`);
     }
-  }, [data]);
+  }, [data, router]);
 
   return (
     <Layout canGoBack title="Go Live">
