@@ -23,6 +23,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       },
     });
     res.json({ ok: true, stream });
+  } else if (req.method === "GET") {
+    const streams = await client.stream.findMany();
+
+    res.json({ ok: true, streams });
   }
 }
 // * nextjs 가 excute할 껍데기 handler
