@@ -34,7 +34,7 @@ const Create: NextPage = () => {
 
   useEffect(() => {
     if (data && data.ok) {
-      router.push(`/stream/${data.stream.id}`);
+      router.push(`/streams/${data.stream.id}`);
     }
   }, [data, router]);
 
@@ -42,14 +42,14 @@ const Create: NextPage = () => {
     <Layout canGoBack title="Go Live">
       <form onSubmit={handleSubmit(onValid)} className="px-4 py-10 space-y-4 ">
         <Input
-          register={register("name")}
+          register={register("name", { required: true })}
           required
           label="Name"
           name="name"
           type="text"
         />
         <Input
-          register={register("price")}
+          register={register("price", { required: true, valueAsNumber: true })}
           required
           label="Price"
           // placeholder="0.00"
@@ -58,7 +58,7 @@ const Create: NextPage = () => {
           kind="price"
         />
         <TextArea
-          register={register("description")}
+          register={register("description", { required: true })}
           name="description"
           label="Description"
         />
