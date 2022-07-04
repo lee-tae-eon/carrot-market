@@ -3,16 +3,25 @@ import Link from "next/link";
 import FloatingButton from "@components/floating-button";
 import Layout from "@components/layout";
 
-const Stream: NextPage = () => {
+import useSWR from "swr";
+import { Stream } from "@prisma/client";
+
+interface StreamsResponse {
+  ok: boolean;
+  streams: Stream[];
+}
+
+const Streams: NextPage = () => {
+  const { data } = useSWR<StreamsResponse>(`/api/streams`);
   return (
     <Layout title="라이브" hasTabBar>
-      <div className="py-10 space-y-4 divide-y-2 ">
-        {[1, 2, 3, 4, 5].map((_, i) => (
-          <Link key={i} href={`/streams/${i}`}>
+      <div className="pt-10 space-y-4 divide-y-2 py-14 ">
+        {data?.streams?.map((stream, i) => (
+          <Link key={stream.id} href={`/streams/${stream.id}`}>
             <a className="block px-4 pt-4">
               <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video" />
               <h1 className="mt-2 text-2xl font-bold text-gray-900">
-                Galaxy S50
+                {stream.name}
               </h1>
             </a>
           </Link>
@@ -38,4 +47,4 @@ const Stream: NextPage = () => {
   );
 };
 
-export default Stream;
+export default Streams;
