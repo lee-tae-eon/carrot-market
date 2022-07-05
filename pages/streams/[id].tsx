@@ -26,7 +26,9 @@ const StreamDetail: NextPage = () => {
     `/api/streams/${router.query.id}/messages`
   );
   const onValid = (form: MessageForm) => {
+    if (loading) return;
     reset();
+    sendMessage(form);
   };
   return (
     <Layout canGoBack>
