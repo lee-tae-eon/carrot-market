@@ -44,14 +44,30 @@ const StreamDetail: NextPage = () => {
   const onValid = (form: MessageForm) => {
     if (loading) return;
     reset();
-    sendMessage(form);
+    mutate(
+      (prev) =>
+        prev &&
+        ({
+          ...prev,
+          stream: {
+            ...prev.stream,
+            messages: [
+              ...prev.stream.messages,
+              {
+                id: Date.now(),
+                message: form.message,
+                user: {
+                  ...user,
+                },
+              },
+            ],
+          },
+        } as any),
+      false
+    );
+    // sendMessage(form);
   };
 
-  useEffect(() => {
-    if (sendMessageData && sendMessageData.ok) {
-      mutate();
-    }
-  }, [sendMessageData, mutate]);
   return (
     <Layout canGoBack>
       <div className="px-4 py-10 space-y-4">
