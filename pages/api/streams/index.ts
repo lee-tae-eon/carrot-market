@@ -24,7 +24,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     });
     res.json({ ok: true, stream });
   } else if (req.method === "GET") {
-    const streams = await client.stream.findMany();
+    const streams = await client.stream.findMany({
+      // take: 10,
+      // skip: 20,
+      // orderBy: {
+      //   createdAt: "desc",
+      // },
+    });
 
     res.json({ ok: true, streams });
   }
