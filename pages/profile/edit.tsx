@@ -41,7 +41,7 @@ const EditProfile: NextPage = () => {
     setValue("name", user?.name || "");
   }, [user, setValue]);
 
-  const onValid = ({ email, phone, name, avatar }: EditProfileForm) => {
+  const onValid = async ({ email, phone, name, avatar }: EditProfileForm) => {
     if (loading) return;
 
     if (email === "" && phone === "" && name !== "") {
@@ -51,14 +51,10 @@ const EditProfile: NextPage = () => {
       });
     }
     if (avatar && avatar.length > 0) {
-      // ask for CF Url
+      const cloudflareRequest = await (await fetch(`/api/files`)).json();
+      console.log(cloudflareRequest);
       // upload file to cf url
-      editProfile({
-        email,
-        phone,
-        name,
-        // avatarUrl: CF URL
-      });
+      return;
     } else {
       editProfile({
         email,

@@ -9,7 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       where: { id: req.session.user?.id },
     });
 
-    res.json({
+    return res.json({
       ok: true,
       profile,
     });
@@ -33,7 +33,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
           name,
         },
       });
-      res.json({ ok: true });
+      return res.json({ ok: true });
     }
 
     if (email && email !== currentUser?.email) {
@@ -60,7 +60,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
           email,
         },
       });
-      res.json({ ok: true });
+      return res.json({ ok: true });
     }
     if (phone && phone !== currentUser?.phone) {
       const alreadyExists = Boolean(
@@ -86,7 +86,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
           phone,
         },
       });
-      res.json({ ok: true });
+      return res.json({ ok: true });
     }
   }
   res.json({ ok: true });
