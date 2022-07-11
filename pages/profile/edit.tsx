@@ -50,12 +50,22 @@ const EditProfile: NextPage = () => {
           "Email or phone number or name are required. You need to choose one.",
       });
     }
-
-    editProfile({
-      email,
-      phone,
-      name,
-    });
+    if (avatar && avatar.length > 0) {
+      // ask for CF Url
+      // upload file to cf url
+      editProfile({
+        email,
+        phone,
+        name,
+        // avatarUrl: CF URL
+      });
+    } else {
+      editProfile({
+        email,
+        phone,
+        name,
+      });
+    }
   };
 
   useEffect(() => {
@@ -74,7 +84,7 @@ const EditProfile: NextPage = () => {
       setAvatarPreview(URL.createObjectURL(file));
     }
   }, [avatar, setAvatarPreview]);
-  console.log("cloud flare  payment 를 하는군...");
+
   return (
     <Layout canGoBack title="Edit Profile">
       <form onSubmit={handleSubmit(onValid)} className="px-4 py-10 space-y-4">
