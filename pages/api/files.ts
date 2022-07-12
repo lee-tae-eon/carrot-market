@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import withHandler, { ResType } from "@libs/server/withHandler";
-import client from "@libs/server/client";
 import { withApiSession } from "@libs/server/withSession";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   const response = await (
