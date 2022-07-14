@@ -23,6 +23,7 @@ interface EditProfileResponse {
 
 const EditProfile: NextPage = () => {
   const { user } = useUser();
+  const [avatarPreview, setAvatarPreview] = useState("");
   const {
     register,
     handleSubmit,
@@ -36,10 +37,24 @@ const EditProfile: NextPage = () => {
     useMutation<EditProfileResponse>(`/api/users/me`);
 
   useEffect(() => {
-    setValue("email", user?.email || "");
-    setValue("phone", user?.phone || "");
-    setValue("name", user?.name || "");
+    if (user?.email) setValue("email", user?.email || "");
+    if (user?.phone) setValue("phone", user?.phone || "");
+    if (user?.name) setValue("name", user?.name || "");
+    if (user?.avatar)
+      setAvatarPreview(
+        `https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${user?.avatar}/public` ||
+          ""
+      );
   }, [user, setValue]);
+
+  const avatar = watch("avatar");
+
+  useEffect(() => {
+    if (avatar && avatar.length > 0) {
+      const file = avatar[0];
+      setAvatarPreview(URL.createObjectURL(file));
+    }
+  }, [avatar, setAvatarPreview]);
 
   const onValid = async ({ email, phone, name, avatar }: EditProfileForm) => {
     if (loading) return;
@@ -53,11 +68,7 @@ const EditProfile: NextPage = () => {
     if (avatar && avatar.length > 0) {
       const { uploadURL } = await (await fetch(`/api/files`)).json();
       const form = new FormData();
-      form.append(
-        "file",
-        avatar[0],
-        user?.email || user?.phone || "userProfile"
-      );
+      form.append("file", avatar[0], user?.id + "");
       const {
         result: { id },
       } = await (
@@ -87,17 +98,6 @@ const EditProfile: NextPage = () => {
       setError("formErrors", { message: data.error });
     }
   }, [data, setError]);
-
-  const [avatarPreview, setAvatarPreview] = useState("");
-
-  const avatar = watch("avatar");
-
-  useEffect(() => {
-    if (avatar && avatar.length > 0) {
-      const file = avatar[0];
-      setAvatarPreview(URL.createObjectURL(file));
-    }
-  }, [avatar, setAvatarPreview]);
 
   return (
     <Layout canGoBack title="Edit Profile">
