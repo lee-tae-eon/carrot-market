@@ -42,7 +42,7 @@ const EditProfile: NextPage = () => {
     if (user?.name) setValue("name", user?.name || "");
     if (user?.avatar)
       setAvatarPreview(
-        `https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${user?.avatar}/public` ||
+        `https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${user?.avatar}/avatar` ||
           ""
       );
   }, [user, setValue]);
