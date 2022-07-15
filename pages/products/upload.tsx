@@ -14,6 +14,7 @@ interface UploadProductForm {
   name: string;
   price: number;
   description: string;
+  photo: FileList;
 }
 
 interface UploadProductMutation {
@@ -58,7 +59,12 @@ const Upload: NextPage = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <input className="hidden" type="file" />
+            <input
+              {...register("photo")}
+              accept="image/*"
+              className="hidden"
+              type="file"
+            />
           </label>
         </div>
         <Input
