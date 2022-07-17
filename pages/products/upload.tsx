@@ -33,7 +33,7 @@ const Upload: NextPage = () => {
   const onValid = async ({ name, price, description }: UploadProductForm) => {
     if (loading) return;
     if (photo && photo.length > 0) {
-      const { uploadURL } = await (await fetch(`/apo/files`)).json();
+      const { uploadURL } = await (await fetch(`/api/files`)).json();
       const form = new FormData();
       form.append("file", photo[0], name);
       const {

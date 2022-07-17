@@ -21,7 +21,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   }
   if (req.method === "POST") {
     const {
-      body: { price, name, description },
+      body: { price, name, description, photoId },
       session: { user },
     } = req;
 
@@ -30,7 +30,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
         name,
         price: +price,
         description,
-        image: "hhh",
+        image: photoId,
         user: {
           connect: {
             id: user?.id,
