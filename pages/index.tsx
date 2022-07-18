@@ -7,6 +7,8 @@ import useUser from "@libs/client/useUser";
 import Head from "next/head";
 import useSWR from "swr";
 import { Product } from "@prisma/client";
+import Image from "next/image";
+import screenshot from "../public/screen.png";
 
 export interface ProductWithFavCount extends Product {
   _count: {
@@ -58,6 +60,7 @@ const Home: NextPage = () => {
           </svg>
         </FloatingButton>
       </div>
+      <Image src={screenshot} />
     </Layout>
   );
 };
