@@ -60,7 +60,7 @@ const Home: NextPage = () => {
           </svg>
         </FloatingButton>
       </div>
-      <Image src={screenshot} />
+      <Image src={screenshot} placeholder="blur" quality={5} />
     </Layout>
   );
 };
