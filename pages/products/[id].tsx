@@ -45,10 +45,16 @@ const ItemDetail: NextPage = () => {
     <Layout canGoBack>
       <div className="px-4 py-4">
         <div className="mb-8">
-          <img
-            src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product.image}/public`}
-            className="my-3 h-96 bg-slate-300"
-          />
+          <div className="relative pb-80">
+            <Image
+              src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product.image}/public`}
+              className="object-center bg-slate-300"
+              layout="fill"
+              quality={100}
+              placeholder="blur"
+              blurDataURL={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product.image}/public`}
+            />
+          </div>
           <div className="flex py-3 mt-1 space-x-3 border-t border-b cursor-pointer items-cweenter">
             <Image
               src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product?.user?.avatar}/avatar`}
@@ -56,6 +62,8 @@ const ItemDetail: NextPage = () => {
               height={48}
               quality={100}
               className="w-12 h-12 rounded-full bg-slate-300"
+              placeholder="blur"
+              blurDataURL={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product?.user?.avatar}/avatar`}
             />
             <div>
               <p className="text-sm font-medium text-gray-700">
