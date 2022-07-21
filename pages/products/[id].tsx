@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -8,7 +8,7 @@ import Layout from "@components/layout";
 import { Product, User } from "@prisma/client";
 import useMutation from "@libs/client/useMutation";
 import { getClass } from "@libs/client/utils";
-import useUser from "@libs/client/useUser";
+// import useUser from "@libs/client/useUser";
 import Image from "next/image";
 
 interface ProductWidthUser extends Product {
@@ -23,10 +23,10 @@ interface ItemDetailResponse {
 }
 
 const ItemDetail: NextPage = () => {
-  const { user, isLoading } = useUser();
+  // const { user, isLoading } = useUser();
   const router = useRouter();
   const { id } = router.query;
-  const { mutate } = useSWRConfig();
+  // const { mutate } = useSWRConfig();
   const { data, mutate: boundMutate } = useSWR<ItemDetailResponse>(
     router.query.id ? `/api/products/${id}` : null
   );
@@ -69,7 +69,7 @@ const ItemDetail: NextPage = () => {
               <p className="text-sm font-medium text-gray-700">
                 {data?.product?.user?.name}
               </p>
-              <Link href={`/users/profiles/${data?.product?.user?.name}`}>
+              <Link href={`/users/profile/${data?.product?.user?.id}`}>
                 <a className="text-xs font-medium text-gray-500">
                   View profile &rarr;
                 </a>
