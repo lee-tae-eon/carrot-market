@@ -52,6 +52,9 @@ const ItemDetail: NextPage = () => {
           <div className="flex py-3 mt-1 space-x-3 border-t border-b cursor-pointer items-cweenter">
             <Image
               src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product?.user?.avatar}/avatar`}
+              width={48}
+              height={48}
+              quality={100}
               className="w-12 h-12 rounded-full bg-slate-300"
             />
             <div>
