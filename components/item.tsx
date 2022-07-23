@@ -15,6 +15,7 @@ export default function Item({
   hearts,
   id,
 }: ItemProps) {
+  // todo : 리스트  아이템 이지 변ㅕ
   return (
     <Link href={`/products/${id}`}>
       <a className="flex justify-between px-4 pt-5 cursor-pointer">
