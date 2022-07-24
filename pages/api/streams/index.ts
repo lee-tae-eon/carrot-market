@@ -11,6 +11,18 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   } = req;
 
   if (req.method === "POST") {
+    const response = await (
+      await fetch(
+        `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/stream/live_inputs`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.CLOUDFLARE_IMAGE_TOKEN}`,
+          },
+        }
+      )
+    ).json();
     const stream = await client.stream.create({
       data: {
         name,
