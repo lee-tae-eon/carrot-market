@@ -14,7 +14,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
     const {
       result: {
         uid,
-        rtmps: { streamKey, url },
+        rtmps: { url, streamKey },
       },
     } = await (
       await fetch(
@@ -24,7 +24,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
           headers: {
             Authorization: `Bearer ${process.env.CLOUDFLARE_STREAM_TOKEN}`,
           },
-          body: `{"meta": {"name":${name}},"recording": { "mode": "automatic", "timeoutSeconds": 10}}`,
+          body: `{"meta": {"name":"${name}"},"recording": { "mode": "automatic", "timeoutSeconds": 10}}`,
         }
       )
     ).json();
