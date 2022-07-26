@@ -77,7 +77,7 @@ const StreamDetail: NextPage = () => {
         <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video">
           <iframe
             src={`https://iframe.videodelivery.net/${data?.stream?.cloudflareId}`}
-            className="w-full h-full"
+            className="w-full rounded-md shadow-md aspect-video"
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             allowFullScreen={true}
           ></iframe>
