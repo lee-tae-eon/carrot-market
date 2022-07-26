@@ -75,12 +75,14 @@ const StreamDetail: NextPage = () => {
     <Layout canGoBack>
       <div className="px-4 py-10 space-y-4">
         <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video">
-          <iframe
-            src={`https://iframe.videodelivery.net/${data?.stream?.cloudflareId}`}
-            className="w-full rounded-md shadow-md aspect-video"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-            allowFullScreen={true}
-          ></iframe>
+          {data?.stream.cloudflareId ? (
+            <iframe
+              src={`https://iframe.videodelivery.net/${data?.stream?.cloudflareId}`}
+              className="w-full rounded-md shadow-md aspect-video"
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+              allowFullScreen={true}
+            ></iframe>
+          ) : null}
         </div>
         <div className="mt-5">
           <h1 className="text-3xl font-bold text-gray-900">
