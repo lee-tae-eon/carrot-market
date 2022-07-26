@@ -48,7 +48,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   } else if (req.method === "GET") {
     const streams = await client.stream.findMany({
       take: +skip,
-      skip: +skip * +page,
+      skip: +skip * (+page - 1),
       orderBy: {
         createdAt: "desc",
       },
