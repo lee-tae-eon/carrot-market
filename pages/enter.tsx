@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
-import { getClass } from "@libs/client/utils";
+import useUser from "@libs/client/useUser";
 import useMutation from "@libs/client/useMutation";
+import { getClass } from "@libs/client/utils";
 
 import Button from "@components/button";
 import Input from "@components/input";
-import { useRouter } from "next/router";
-import useUser from "@libs/client/useUser";
+import dynamic from "next/dynamic";
+
+// import Bs from "@components/bs";
+
+const Bs = dynamic(() => import("@components/bs"));
 
 interface EnterForm {
   email?: string;
@@ -137,6 +142,7 @@ export default function Enter() {
               ) : null}
               {method === "phone" ? (
                 <>
+                  <Bs />
                   <Input
                     register={register("phone")}
                     name="phone"
