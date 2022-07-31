@@ -12,7 +12,13 @@ import dynamic from "next/dynamic";
 
 // import Bs from "@components/bs";
 
-const Bs = dynamic(() => import("@components/bs"));
+const Bs = dynamic(
+  () =>
+    new Promise((resolve) =>
+      setTimeout(() => resolve(import("@components/bs")), 10000)
+    ),
+  { ssr: false }
+);
 
 interface EnterForm {
   email?: string;

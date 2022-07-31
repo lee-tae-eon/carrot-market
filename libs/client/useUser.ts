@@ -10,7 +10,7 @@ interface UserMeProps {
 }
 
 export default function useUser(isEnter?: string) {
-  const { data, error } = useSWR<UserMeProps>("/api/users/me", {});
+  const { data, error } = useSWR<UserMeProps>("/api/users/me", null, {});
   const router = useRouter();
 
   useEffect(() => {
