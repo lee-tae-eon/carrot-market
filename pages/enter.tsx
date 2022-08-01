@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
@@ -12,13 +12,13 @@ import dynamic from "next/dynamic";
 
 // import Bs from "@components/bs";
 
-const Bs = dynamic(
-  () =>
-    new Promise((resolve) =>
-      setTimeout(() => resolve(import("@components/bs")), 3000)
-    ),
-  { ssr: false, suspense: true }
-);
+// const Bs = dynamic(
+//   () =>
+//     new Promise((resolve) =>
+//       setTimeout(() => resolve(import("@components/bs")), 3000)
+//     ),
+//   { ssr: false, suspense: true, loading: () => <span>loading...</span> }
+// );
 
 interface EnterForm {
   email?: string;
@@ -148,9 +148,9 @@ export default function Enter() {
               ) : null}
               {method === "phone" ? (
                 <>
-                  <Suspense fallback="loading ...">
+                  {/* <Suspense fallback="loading ...">
                     <Bs />
-                  </Suspense>
+                  </Suspense> */}
                   <Input
                     register={register("phone")}
                     name="phone"
