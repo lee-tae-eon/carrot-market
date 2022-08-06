@@ -22,12 +22,12 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </div>
       // * strategy
-      <Script
+      {/* <Script
         src="https://developers.kakao.com/sdk/js/kakao.js"
         strategy="lazyOnload"
-      />
+      /> */}
       // * onLoad
-      <Script
+      {/* <Script
         src="https://connect.facebook.net/en_US/sdk.js"
         onLoad={() => {
           window.fbAsyncInit = function () {
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             });
           };
         }}
-      />
+      /> */}
     </SWRConfig>
   );
 }
