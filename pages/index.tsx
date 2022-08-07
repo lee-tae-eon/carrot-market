@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import FloatingButton from "@components/floating-button";
 import Item from "@components/item";
 import Layout from "@components/layout";
-import useUser from "@libs/client/useUser";
+// import useUser from "@libs/client/useUser";
 import Head from "next/head";
 import useSWR from "swr";
 import { Product } from "@prisma/client";
@@ -23,9 +23,9 @@ interface ProductResType {
 }
 
 const Home: NextPage<{ products: ProductWithFavCount[] }> = ({ products }) => {
-  const { user, isLoading } = useUser();
+  // const { user, isLoading } = useUser();
 
-  // const { data } = useSWR<ProductResType>("/api/products");
+  const { data } = useSWR<ProductResType>("/api/products");
 
   return (
     <Layout title={"홈"} hasTabBar>
@@ -33,7 +33,7 @@ const Home: NextPage<{ products: ProductWithFavCount[] }> = ({ products }) => {
         <title>HOME</title>
       </Head>
       <div className="flex flex-col py-10 space-y-5">
-        {products?.map((product) => (
+        {data?.products?.map((product) => (
           <Item
             id={product?.id}
             key={product?.id}
@@ -66,13 +66,13 @@ const Home: NextPage<{ products: ProductWithFavCount[] }> = ({ products }) => {
   );
 };
 
-export default Home;
+// export async function getServerSideProps() {
+//   const products = await client?.product.findMany({});
+//   return {
+//     props: {
+//       products: JSON.parse(JSON.stringify(products)),
+//     },
+//   };
+// }
 
-export async function getServerSideProps() {
-  const products = await client?.product.findMany({});
-  return {
-    props: {
-      products: JSON.parse(JSON.stringify(products)),
-    },
-  };
-}
+export default Home;
