@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 
 import FloatingButton from "@components/floating-button";
 import Item from "@components/item";
