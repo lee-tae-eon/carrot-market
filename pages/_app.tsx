@@ -21,12 +21,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className="w-full max-w-xl mx-auto">
         <Component {...pageProps} />
       </div>
-      // * strategy
+      {/* strategy */}
       {/* <Script
         src="https://developers.kakao.com/sdk/js/kakao.js"
         strategy="lazyOnload"
       /> */}
-      // * onLoad
+      {/* // * onLoad */}
       {/* <Script
         src="https://connect.facebook.net/en_US/sdk.js"
         onLoad={() => {

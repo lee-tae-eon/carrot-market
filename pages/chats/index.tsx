@@ -25,3 +25,7 @@ const Chats: NextPage = () => {
 };
 
 export default Chats;
+
+// * static page
+// * no data no react state
+// * how to create another kind data

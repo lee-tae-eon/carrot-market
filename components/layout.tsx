@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { getClass } from "@libs/client/utils";
+import Head from "next/head";
 
 interface LayoutProps {
   title?: string;
@@ -22,6 +23,9 @@ export default function Layout({
   };
   return (
     <div>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <div className="fixed top-0 flex items-center justify-center w-full h-12 max-w-xl px-10 text-lg font-medium text-gray-800 bg-white border-b">
         {canGoBack ? (
           <button onClick={clickGoback} className="absolute left-4">
