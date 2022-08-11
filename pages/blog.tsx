@@ -10,3 +10,7 @@ export default function Blog() {
     </Layout>
   );
 }
+
+export async function getStaticProps() {
+  return {};
+}
