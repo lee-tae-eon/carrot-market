@@ -1,4 +1,5 @@
 import Layout from "@components/layout";
+import { readdirSync, readFileSync } from "fs";
 
 export default function Blog() {
   return (
@@ -12,5 +13,12 @@ export default function Blog() {
 }
 
 export async function getStaticProps() {
-  return {};
+  const files = readdirSync("./posts").map((file) => {
+    const content = readFileSync(`./posts/${file}`, "utf-8");
+    console.log(content);
+  });
+
+  return {
+    props: {},
+  };
 }
