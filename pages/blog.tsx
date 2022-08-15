@@ -18,15 +18,11 @@ interface BlogPost {
 const Blog: NextPage<{ posts: BlogPost[] }> = ({ posts }) => {
   return (
     <Layout title="Blog">
-      <h1 className="mt-10 text-lg font-semibold">First Post:</h1>
-      <ul>
-        <li>Welcome everyone!</li>
-      </ul>
       {posts.map((post, idx) => (
-        <div
-          key={idx}
-          dangerouslySetInnerHTML={{ __html: post.content || "" }}
-        ></div>
+        <div key={idx}>
+          <h2 className="mt-10 text-lg font-semibold">{post?.data?.title} :</h2>
+          <div dangerouslySetInnerHTML={{ __html: post.content || "" }}></div>
+        </div>
       ))}
     </Layout>
   );
