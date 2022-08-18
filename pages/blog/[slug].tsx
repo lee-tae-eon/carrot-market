@@ -1,5 +1,6 @@
 import { readdirSync } from "fs";
-import { NextPage } from "next";
+import matter from "gray-matter";
+import { GetStaticProps, NextPage } from "next";
 
 const Post: NextPage = () => {
   return <h1>h1</h1>;
@@ -18,10 +19,11 @@ export function getStaticPaths() {
   };
 }
 
-export function getStaticProps() {
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const { content } = matter.read(`./posts/blogPost/${ctx.params?.slug}.md`);
   return {
     props: {},
   };
-}
+};
 
 export default Post;
