@@ -21,6 +21,7 @@ export function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { content } = matter.read(`./posts/blogPost/${ctx.params?.slug}.md`);
+  console.log(content);
   return {
     props: {},
   };
