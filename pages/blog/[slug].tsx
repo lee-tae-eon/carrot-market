@@ -1,6 +1,9 @@
 import { readdirSync } from "fs";
 import matter from "gray-matter";
 import { GetStaticProps, NextPage } from "next";
+import remarkHtml from "remark-html";
+import remarkParse from "remark-parse";
+import { unified } from "unified";
 
 const Post: NextPage = () => {
   return <h1>h1</h1>;
@@ -21,9 +24,15 @@ export function getStaticPaths() {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const { content } = matter.read(`./posts/blogPost/${ctx.params?.slug}.md`);
-  console.log(content);
+  const { value } = await unified()
+    .use(remarkParse)
+    .use(remarkHtml)
+    .process(content);
+
   return {
-    props: {},
+    props: {
+      post: value,
+    },
   };
 };
 
