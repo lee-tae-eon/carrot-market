@@ -5,8 +5,17 @@ import remarkHtml from "remark-html";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 
-const Post: NextPage = () => {
-  return <h1>h1</h1>;
+interface PostProps {
+  post: string;
+}
+
+const Post: NextPage<PostProps> = ({ post }) => {
+  return (
+    <div
+      className="blog-post-content"
+      dangerouslySetInnerHTML={{ __html: post || "" }}
+    ></div>
+  );
 };
 
 //* getStaticProps 를 사용하는 페이지가 동적 페이지일때 사용하는 getStaticPaths
@@ -28,7 +37,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     .use(remarkParse)
     .use(remarkHtml)
     .process(content);
-
+  console.log(value);
   return {
     props: {
       post: value,

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.blog-post-content h1 {
+  @apply text-red-500 mb-5;
+}
+
 @layer utilities {
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
