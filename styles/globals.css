@@ -2,8 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.blog-post-content {
+  @apply mt-5;
+}
+
 .blog-post-content h1 {
   @apply text-red-500 mb-5;
+}
+
+.blog-post-content h2 {
+  @apply text-blue-500 mb-3;
+}
+
+.blog-post-content ol {
+  @apply pl-[30px] list-decimal;
 }
 
 @layer utilities {
