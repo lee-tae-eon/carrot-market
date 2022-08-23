@@ -101,6 +101,8 @@ const Community: NextPage<PostsResponse> = ({ posts }) => {
   );
 };
 
+// !! getStaticProps 는 빌드때 한번 실행되고 다시 실행되지않는다. caution!!
+
 export async function getStaticProps() {
   const posts = await client.post.findMany({
     include: {
