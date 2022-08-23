@@ -87,7 +87,6 @@ const Page: NextPage<{ products: ProductWithFavCount }> = ({ products }) => {
 
 export async function getServerSideProps() {
   const products = await client?.product.findMany({});
-  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   return {
     props: {
