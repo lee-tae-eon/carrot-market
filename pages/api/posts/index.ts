@@ -22,6 +22,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
       },
     });
 
+    await res.unstable_revalidate("/community");
+
     res.json({
       ok: true,
       post,
