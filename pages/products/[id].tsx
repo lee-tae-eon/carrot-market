@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -152,6 +152,24 @@ const ItemDetail: NextPage = () => {
       </div>
     </Layout>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  if (!ctx.params?.id) {
+    return {
+      props: {},
+    };
+  }
+  return {
+    props: {},
+  };
 };
 
 export default ItemDetail;

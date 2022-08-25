@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     .use(remarkParse)
     .use(remarkHtml)
     .process(content);
-  console.log(value);
+
   return {
     props: {
       post: value,
