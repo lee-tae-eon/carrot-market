@@ -104,6 +104,7 @@ const Community: NextPage<PostsResponse> = ({ posts }) => {
 // !! getStaticProps 는 빌드때 한번 실행되고 다시 실행되지않는다. caution!!
 // !! ISR 의 revalidate 에서 기간을 설정하면 background에서 다시 gesStaticProps를 build한다
 // !! 그래서 그 기간이 지난 경우 접속하면 새로운 data를 볼 수 있다
+// !! onDemand 를 이용해서 revalidate를 삭제하고 mutation 마다 재 build하도록 한다.
 export async function getStaticProps() {
   console.log("Building Community statically");
   const posts = await client.post.findMany({
