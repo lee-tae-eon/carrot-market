@@ -10,6 +10,7 @@ import useMutation from "@libs/client/useMutation";
 import { getClass } from "@libs/client/utils";
 // import useUser from "@libs/client/useUser";
 import Image from "next/image";
+import client from "@libs/server/client";
 
 interface ProductWidthUser extends Product {
   user: User;
@@ -167,6 +168,51 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       props: {},
     };
   }
+
+  const id = ctx.params?.id;
+
+  const product = await client.product.findUnique({
+    where: {
+      id: +id.toString(),
+    },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          avatar: true,
+        },
+      },
+    },
+  });
+  const terms = product?.name.split(" ").map((word) => ({
+    name: {
+      contains: word,
+    },
+  }));
+  const relateProducts = await client.product.findMany({
+    where: {
+      OR: terms,
+      AND: {
+        id: {
+          not: product?.id,
+        },
+      },
+    },
+  });
+  const isLiked = false;
+
+  // Boolean(
+  //   await client.fav.findFirst({
+  //     where: {
+  //       productId: product?.id,
+  //       userId: user?.id,
+  //     },
+  //     select: {
+  //       id: true,
+  //     },
+  //   })
+  // );
   return {
     props: {},
   };
