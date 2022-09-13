@@ -23,7 +23,11 @@ interface ItemDetailResponse {
   isLiked: boolean;
 }
 
-const ItemDetail: NextPage = () => {
+const ItemDetail: NextPage<ItemDetailResponse> = ({
+  product,
+  relateProducts,
+  isLiked,
+}) => {
   // const { user, isLoading } = useUser();
   const router = useRouter();
   const { id } = router.query;
@@ -48,29 +52,29 @@ const ItemDetail: NextPage = () => {
         <div className="mb-8">
           <div className="relative pb-80">
             <Image
-              src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product.image}/public`}
+              src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${product.image}/public`}
               className="object-center bg-slate-300"
               layout="fill"
               quality={100}
               placeholder="blur"
-              blurDataURL={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product.image}/public`}
+              blurDataURL={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${product.image}/public`}
             />
           </div>
           <div className="flex py-3 mt-1 space-x-3 border-t border-b cursor-pointer items-cweenter">
             <Image
-              src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product?.user?.avatar}/avatar`}
+              src={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${product?.user?.avatar}/avatar`}
               width={48}
               height={48}
               quality={100}
               className="w-12 h-12 rounded-full bg-slate-300"
               placeholder="blur"
-              blurDataURL={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${data?.product?.user?.avatar}/avatar`}
+              blurDataURL={`https://imagedelivery.net/o6UjupU9bG6h7vfv_qAx8Q/${product?.user?.avatar}/avatar`}
             />
             <div>
               <p className="text-sm font-medium text-gray-700">
-                {data?.product?.user?.name}
+                {product?.user?.name}
               </p>
-              <Link href={`/users/profile/${data?.product?.user?.id}`}>
+              <Link href={`/users/profile/${product?.user?.id}`}>
                 <a className="text-xs font-medium text-gray-500">
                   View profile &rarr;
                 </a>
@@ -79,13 +83,13 @@ const ItemDetail: NextPage = () => {
           </div>
           <div className="mt-8">
             <h1 className="text-3xl font-bold text-gray-900">
-              {data?.product?.name}
+              {product?.name}
             </h1>
             <span className="mt-3 text-3xl text-gray-900">
-              ${data?.product?.price}
+              ${product?.price}
             </span>
             <p className="my-6 text-base text-gray-700">
-              {data?.product?.description}
+              {product?.description}
             </p>
             <div className="flex items-center justify-between space-x-2">
               <Button large text="Talk to seller" />
@@ -93,12 +97,12 @@ const ItemDetail: NextPage = () => {
                 onClick={onFavClick}
                 className={getClass(
                   "flex items-center justify-center p-3 hover:bg-gray-100  rounded-md",
-                  data?.isLiked
+                  isLiked
                     ? "text-red-400 hover:text-red-500"
                     : "text-gray-400  hover:text-gray-500"
                 )}
               >
-                {data?.isLiked ? (
+                {isLiked ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-5 h-5"
@@ -135,7 +139,7 @@ const ItemDetail: NextPage = () => {
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
           <div className="grid grid-cols-2 gap-4">
-            {data?.relateProducts?.map((item) => (
+            {relateProducts?.map((item) => (
               <div key={item.id}>
                 <Link href={`/products/${item.id}`}>
                   <a>
@@ -173,7 +177,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   const product = await client.product.findUnique({
     where: {
-      id: +id.toString(),
+      id: +ctx.params.id.toString(),
     },
     include: {
       user: {
@@ -214,7 +218,11 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   //   })
   // );
   return {
-    props: {},
+    props: {
+      product: JSON.parse(JSON.stringify(product)),
+      relateProducts: JSON.parse(JSON.stringify(relateProducts)),
+      isLiked,
+    },
   };
 };
 
