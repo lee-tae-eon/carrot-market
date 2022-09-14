@@ -167,8 +167,15 @@ const Page: NextPage<{ profile: User }> = ({ profile }) => {
 export const getServerSideProps = withSsrSession(async function ({
   req,
 }: NextPageContext) {
-  const profile = await client?.user.findUnique({
-    where: { id: req?.session.user?.id },
+  const id = req?.session?.user?.id;
+  if (!id)
+    return {
+      props: {
+        profile: null,
+      },
+    };
+  const profile = await client?.user?.findUnique({
+    where: { id: id },
   });
   return {
     props: {

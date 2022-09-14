@@ -25,7 +25,7 @@ export default function withHandler({
     if (req.method && !method.includes(req.method as method)) {
       return res.status(405).end();
     }
-    if (isPrivate && !req.session.user?.id) {
+    if (isPrivate && !req?.session?.user?.id) {
       return res.status(401).json({ ok: false, errors: "please login" });
     }
     try {

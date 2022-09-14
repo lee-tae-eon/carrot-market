@@ -6,7 +6,7 @@ import { withApiSession } from "@libs/server/withSession";
 async function handler(req: NextApiRequest, res: NextApiResponse<ResType>) {
   if (req.method === "GET") {
     const profile = await client.user.findUnique({
-      where: { id: req.session.user?.id },
+      where: { id: req?.session?.user?.id },
     });
     if (!profile) {
       return res.json({
