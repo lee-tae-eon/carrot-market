@@ -159,6 +159,12 @@ const ItemDetail: NextPage<ItemDetailResponse> = ({
   );
 };
 // * get Static paths를  빈배열로 설정 후 blocking설정
+// * 빌드시에는 paths가 없기에 하위 html이 생성 되지 않는다
+// * 하지만 방문시에 fallback이 관여함
+// * getstaticProps 또는 getStaticPaths를 가지고 있는 페이지를 방문 할 때
+// * 해당 페이지에 HTML이 없다면 fallback  blocking 은
+// * 유저를 잠시 기다리게 만들고 그동안 백그라운드에서 페이지를 만들어서 유저에게 넘겨준다.
+
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [],
@@ -169,6 +175,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 // * pre generate하지만 각 id에 대해 전부 하지 않고 slug페이지만 만들어두고
 // * id값을 받아서 fetching후 해당페이지 생성
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  // * ctx에 id가 없으면 리턴
   if (!ctx.params?.id) {
     return {
       props: {},
