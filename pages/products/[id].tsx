@@ -164,11 +164,13 @@ const ItemDetail: NextPage<ItemDetailResponse> = ({
 // * getstaticProps 또는 getStaticPaths를 가지고 있는 페이지를 방문 할 때
 // * 해당 페이지에 HTML이 없다면 fallback  blocking 은
 // * 유저를 잠시 기다리게 만들고 그동안 백그라운드에서 페이지를 만들어서 유저에게 넘겨준다.
-
+// ! 만약 blocking 사용중 만들어진 page가 없다면 blank 화면을 보게된다.
+// ! 그리고 나서 getStaticProps 가 실행이 되고 페이지가 서버사이드 랜더링 되고 페이지가 준비되면 유저가 사이트 보는 것이 가능
+// ! fallback false를 쓰면 어떤 페이지든 프로젝트의 빌드과정에서 만들어진 페이지만  보여질 수 있고 아니면 404 페이지를 보게 된다.
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [],
-    fallback: "blocking",
+    fallback: false,
   };
 };
 // * server에서 직접 db쳐서 가져와서 prop전달
