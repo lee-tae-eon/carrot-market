@@ -45,7 +45,13 @@ const ItemDetail: NextPage<ItemDetailResponse> = ({
     // mutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false);
     toggleFav({});
   };
-
+  if (router.isFallback) {
+    return (
+      <Layout title="loading">
+        <span>LOADING LOADING</span>
+      </Layout>
+    );
+  }
   return (
     <Layout canGoBack>
       <div className="px-4 py-4">
@@ -167,10 +173,15 @@ const ItemDetail: NextPage<ItemDetailResponse> = ({
 // ! 만약 blocking 사용중 만들어진 page가 없다면 blank 화면을 보게된다.
 // ! 그리고 나서 getStaticProps 가 실행이 되고 페이지가 서버사이드 랜더링 되고 페이지가 준비되면 유저가 사이트 보는 것이 가능
 // ! fallback false를 쓰면 어떤 페이지든 프로젝트의 빌드과정에서 만들어진 페이지만  보여질 수 있고 아니면 404 페이지를 보게 된다.
+// * fallback true는 request 타임에 페이지를 생성할 수 있게 해준다.
+// * true의 경우 페이지를 생성하는 동안 유저에게 미리 보여 줄 수 있다.
+
+// * fallback true/blocking은 모두 최초 요청에 대해서 html 파일을 생성한다
+// * 다른점은 blocking은 기다림을 주고 true는 무언가를 보여 줄 수 있다.
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: [],
-    fallback: false,
+    fallback: true,
   };
 };
 // * server에서 직접 db쳐서 가져와서 prop전달
@@ -216,7 +227,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     },
   });
   const isLiked = false;
-
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   // Boolean(
   //   await client.fav.findFirst({
   //     where: {
