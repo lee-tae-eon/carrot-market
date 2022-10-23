@@ -211,6 +211,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       },
     },
   });
+
   const terms = product?.name.split(" ").map((word) => ({
     name: {
       contains: word,

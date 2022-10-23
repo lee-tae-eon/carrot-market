@@ -149,39 +149,48 @@ const Profile: NextPage = () => {
     </Layout>
   );
 };
-
-const Page: NextPage<{ profile: User }> = ({ profile }) => {
+const Page: NextPage = () => {
   return (
-    <SWRConfig
-      value={{
-        fallback: {
-          "/api/users/me": { profile },
-        },
-      }}
-    >
+    <SWRConfig value={{}}>
       <Profile />
     </SWRConfig>
   );
 };
-// * session 정보를 가져오기 위해 감싸줌
-export const getServerSideProps = withSsrSession(async function ({
-  req,
-}: NextPageContext) {
-  const id = req?.session?.user?.id;
-  if (!id)
-    return {
-      props: {
-        profile: null,
-      },
-    };
-  const profile = await client?.user?.findUnique({
-    where: { id: id },
-  });
-  return {
-    props: {
-      profile: JSON.parse(JSON.stringify(profile)),
-    },
-  };
-});
+
+// * serverside props  사용시 -----------
+
+// const Page: NextPage<{ profile: User }> = ({ profile }) => {
+//   return (
+//     <SWRConfig
+//       value={{
+//         fallback: {
+//           "/api/users/me": { profile },
+//         },
+//       }}
+//     >
+//       <Profile />
+//     </SWRConfig>
+//   );
+// };
+// // * session 정보를 가져오기 위해 감싸줌
+// export const getServerSideProps = withSsrSession(async function ({
+//   req,
+// }: NextPageContext) {
+//   const id = req?.session?.user?.id;
+//   if (!id)
+//     return {
+//       props: {
+//         profile: null,
+//       },
+//     };
+//   const profile = await client?.user?.findUnique({
+//     where: { id: id },
+//   });
+//   return {
+//     props: {
+//       profile: JSON.parse(JSON.stringify(profile)),
+//     },
+//   };
+// });
 
 export default Page;
